@@ -1,43 +1,39 @@
-  function handleDevToolsCheck() {
+const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+const isMetaApp = /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
+
+function handleDevToolsCheck() {
     const checkDevTools = () => {
-        // Threshold to detect DevTools open
-        const threshold = 160; 
+        const threshold = 160;
         let widthThreshold = window.outerWidth - window.innerWidth > threshold;
         let heightThreshold = window.outerHeight - window.innerHeight > threshold;
 
         if (widthThreshold || heightThreshold) {
-             alert("⚠ กรุณาปิด Console (F12) เพื่อใช้งานเว็บไซต์");
-             window.location.href = "about:blank"; // redirect ออกไป
+            alert("⚠ กรุณาปิด Console (F12) เพื่อใช้งานเว็บไซต์");
+            window.location.href = "about:blank";
         }
     };
 
-    // Check every 1 second
     setInterval(checkDevTools, 1000);
 
-    // Capture F12 and Ctrl+Shift+I key presses
     document.addEventListener("keydown", function(e) {
-        if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i"))) {
+        if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key.toLowerCase() === "i"))) {
             e.preventDefault();
-            // Use a custom modal or message box instead of alert()
             alert("⚠ กรุณาปิด Console (F12) เพื่อใช้งานเว็บไซต์");
             return false;
         }
     });
 }
-  
-// Check user agent to see if it's a Meta App browser
-const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-const isMetaApp = /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
 
-// Main logic: use if-else to decide which function to run
+// --- แก้ปัญหา redirect loop ---
 if (isMetaApp) {
-    // If it's a Meta App, redirect to the external URL without running the F12 check
-    window.location.href = 'https://ngenkillerth.github.io/Portfolio/';
+    const target = "https://ngenkillerth.github.io/Portfolio/";
+    // เช็กว่า URL ปัจจุบันไม่ตรงกับ target ก่อนค่อย redirect
+    if (window.location.href !== target) {
+        window.location.href = target;
+    }
 } else {
-    // If it's another browser, run the DevTools check
     handleDevToolsCheck();
 }
-
 
 
 
