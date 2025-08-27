@@ -25,16 +25,15 @@ function handleDevToolsCheck() {
 }
 
 // --- แก้ปัญหา redirect loop ---
-if (isMetaApp) {
-    const target = "https://ngenkillerth.github.io/Portfolio/";
-    // เช็กว่า URL ปัจจุบันไม่ตรงกับ target ก่อนค่อย redirect
-    if (window.location.href !== target) {
-        window.location.href = target;
-    }
-} else {
+if (!isMetaApp) {
     handleDevToolsCheck();
+} else {
+    // redirect ไป GitHub แต่ไม่บังคับวนกลับหน้าแรก
+    const targetDomain = "ngenkillerth.github.io";
+    if (window.location.hostname !== targetDomain) {
+        window.location.href = "https://ngenkillerth.github.io/Portfolio/";
+    }
 }
-
 
 
 
