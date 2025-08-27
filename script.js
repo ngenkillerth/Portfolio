@@ -1,12 +1,43 @@
-  // ตรวจสอบ user agent เพื่อดูว่ากำลังเปิดในเบราว์เซอร์ของ Facebook หรือไม่
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  const isMetaApp = /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
+  function handleDevToolsCheck() {
+    const checkDevTools = () => {
+        // Threshold to detect DevTools open
+        const threshold = 160; 
+        let widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        let heightThreshold = window.outerHeight - window.innerHeight > threshold;
 
-  if (isMetaApp) {
-    // สร้างลิงก์ใหม่ที่เปิดในเบราว์เซอร์ภายนอก
-    // ใช้ window.location.href แทน เพื่อให้แน่ใจว่าทำงานได้บนหลายแพลตฟอร์ม
+        if (widthThreshold || heightThreshold) {
+             alert("⚠ กรุณาปิด Console (F12) เพื่อใช้งานเว็บไซต์");
+             window.location.href = "about:blank"; // redirect ออกไป
+        }
+    };
+
+    // Check every 1 second
+    setInterval(checkDevTools, 1000);
+
+    // Capture F12 and Ctrl+Shift+I key presses
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i"))) {
+            e.preventDefault();
+            // Use a custom modal or message box instead of alert()
+            alert("⚠ กรุณาปิด Console (F12) เพื่อใช้งานเว็บไซต์");
+            return false;
+        }
+    });
+}
+  
+// Check user agent to see if it's a Meta App browser
+const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+const isMetaApp = /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
+
+// Main logic: use if-else to decide which function to run
+if (isMetaApp) {
+    // If it's a Meta App, redirect to the external URL without running the F12 check
     window.location.href = 'https://ngenkillerth.github.io/Portfolio/';
-  }
+} else {
+    // If it's another browser, run the DevTools check
+    handleDevToolsCheck();
+}
+
 
 
 
@@ -28,30 +59,6 @@ devtools.toString = function() {
     this.opened = true;
 };
 
-(function() {
-  const checkDevTools = () => {
-    const threshold = 160; // ค่าความกว้าง/สูง ที่ devtools เปิด
-    let widthThreshold = window.outerWidth - window.innerWidth > threshold;
-    let heightThreshold = window.outerHeight - window.innerHeight > threshold;
-    if (widthThreshold || heightThreshold) {
-      alert("⚠ กรุณาปิด Console (F12) เพื่อใช้งานเว็บไซต์");
-      window.location.href = "about:blank"; // redirect ออกไป
-    }
-  };
-
-  // ตรวจทุก 1 วิ
-  setInterval(checkDevTools, 1000);
-
-  // จับ F12 และ Ctrl+Shift+I
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "F12" || 
-        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i"))) {
-      e.preventDefault();
-      alert("⚠ กรุณาปิด Console (F12) เพื่อใช้งานเว็บไซต์");
-      return false;
-    }
-  });
-})();
 
 // Run the function when the page loads
 window.onload = checkDevTools;
