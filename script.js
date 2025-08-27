@@ -5,7 +5,7 @@
   if (isFacebookApp) {
     // สร้างลิงก์ใหม่ที่เปิดในเบราว์เซอร์ภายนอก
     // ใช้ window.location.href แทน เพื่อให้แน่ใจว่าทำงานได้บนหลายแพลตฟอร์ม
-    window.location.href = 'file:///E:/YT/OurWebSite%20ngenkiller/Site-Portfolio-main/index.html';
+    window.location.href = 'https://ngenkillerth.github.io/Portfolio/';
   }
 
 
