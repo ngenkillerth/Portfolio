@@ -2,8 +2,7 @@
 <html>
   <head>
     <base target="_top">
-    <!-- Use a templated HTML printing scriptlet to import common stylesheet -->
-    <?!= HtmlService.createHtmlOutputFromFile('Stylesheet').getContent(); ?>
+    <link rel="stylesheet" href="styles.css">
 
   </head>
 
@@ -251,10 +250,6 @@
      <p align="center">&copy; 2025 ngenkiller. All rights reserved.</p>
     </footer>
     <!-- END HERE -->
-
-
-
-    <!-- Use a templated HTML printing scriptlet to import JavaScript. -->
-    <?!= HtmlService.createHtmlOutputFromFile('JavaScript').getContent(); ?>
+    <script src="script.js"></script>
   </body>
 </html>
