@@ -1,0 +1,778 @@
+<!-- This CSS package applies Google styling; it should always be included. -->
+<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons.css">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+::-webkit-scrollbar {
+  width: 8px; /* ความกว้างของ Scroll bar */
+}
+
+/* กำหนดสีพื้นหลัง */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* กำหนดสีของตัวเลื่อน */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* เปลี่ยนสีเมื่อชี้เมาส์ */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+#warning {
+  display: none;
+}
+
+
+        .popup-overlay {
+            /* ทำให้ Popup อยู่เต็มหน้าจอและอยู่ด้านบนสุด */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* พื้นหลังทึบแสง */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .popup-content h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .popup-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background-color: blue;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12px;
+             transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .close-btn:hover {
+           background-color: red; /* แก้ไขตรงนี้ให้เปลี่ยนเป็นสีแดง */
+           color: red; /* เปลี่ยนสีตัวอักษรเป็นสีขาวเพื่อให้เห็นชัดเจน */
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+
+  /* body */
+ body {
+    background-color: #FFFCFB;
+    /* background: url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(5px); /* ปรับค่า 5px ตามความต้องการ */
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 150%;
+    margin: 0;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+  }
+  /* header */
+  header {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  header h1 {
+    margin: 0;
+  }
+  .work {
+    margin-bottom: 30px;
+  }
+  .work iframe {
+    width: 100%;
+    height: 315px;
+    border: none;
+    border-radius: 10px;
+  }
+  .work img {
+    width: 100%;
+    border-radius: 10px;
+}
+nav {
+  width: 100%;
+  background: #ffffff; /* สีพื้นหลังขาวเรียบ */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* เงาบางๆ */
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-radius: 5px;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+}
+
+nav ul li {
+  margin: 0 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-family: "Prompt", sans-serif; /* ฟอนต์ดู modern */
+  font-size: 16px;
+  color: #333;
+  padding: 12px 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* เส้นใต้เวลา hover */
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  width: 100%;
+  height: 2px;
+  background: #0073ff; /* สีน้ำเงิน minimal */
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+nav ul li a:hover {
+  text-decoration: none;
+  color: #0073ff;
+}
+
+nav ul li a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+
+.PackagePriceBase {
+
+  align-items: center;
+  text-align: center;
+}
+.PackagePriceBase h2 {
+  text-decoration: underline;
+}
+.PackagePriceBaseImg {
+  border-radius: 20px; /* กำหนดมุมโค้งที่นี่ */
+  overflow: hidden; /* ซ่อนส่วนที่เกินจากมุมโค้ง */
+  width: 90%; /* กำหนดขนาดของ container */
+  margin: 0 auto; /* จัดกึ่งกลาง */
+  margin-bottom: 50px;
+}
+.PackagePriceBaseImg a {
+  text-decoration: none;
+}
+.PackagePriceBaseImg a:hover {
+  text-decoration: none;
+  color: #0073ff;
+}
+
+
+.PackagePriceBaseImg img {
+  width: 100%; /* ยืดรูปภาพให้เต็ม container */
+  height: auto; /* รักษาอัตราส่วนของภาพ */
+  display: block; /* ลบช่องว่างด้านล่างของรูปภาพ */
+}
+
+
+.programUsage_title h2{
+  text-align: center;
+}
+.programUsage {
+  margin-bottom: 40px;
+}
+.programUsage_img {
+  display: flex; /* เปิดใช้งาน Flexbox */
+  justify-content: center; /* จัดเรียง Element ให้อยู่กึ่งกลางในแนวนอน */
+  align-items: center; /* จัดเรียง Element ให้อยู่กึ่งกลางในแนวตั้ง (ในกรณีที่ขนาดไม่เท่ากัน) */
+  gap: 20px; /* เพิ่มระยะห่างระหว่างรูปภาพแต่ละรูป */
+  filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5)); 
+}
+
+.programUsage_img img {
+  border-radius: 20px;
+  width: 100px; /* กำหนดความกว้างของรูปภาพให้เท่ากัน */
+  height: auto; /* กำหนดความสูงแบบอัตโนมัติเพื่อรักษาสัดส่วน */
+}
+.programUsage_img img:hover {
+  transform: scale(1.1); /* ขยายรูปภาพขึ้น 1.5 เท่า */
+  transition: transform 0.6s ease;
+
+}
+#MyWorkLastestList {
+  text-decoration: underline;
+  text-align: center;
+  margin-bottom: 0px;
+}
+.work-long_form {
+  display: flex; /* ใช้ Flexbox เพื่อจัดการจัดเรียงลูกๆ */
+  flex-direction: column; /* จัดเรียงในแนวตั้ง */
+  align-items: center; /* จัดกึ่งกลางในแนวนอน */
+}
+,work-long_form long-form-title{
+    /* กำหนดระยะห่างด้านล่างเพื่อไม่ให้ทับกับวิดีโอ */
+    margin-bottom: 0;
+    font-size: 1.5rem; /* ปรับขนาดตัวอักษรตามต้องการ */
+}
+.long-form-video {
+  position: relative;        /* กำหนดให้เป็น Container สำหรับ iframe */
+  width: 100%;
+  padding-bottom: 56.25%;    /* 16:9 Aspect Ratio */
+  overflow: hidden;
+  margin-top: 0;
+}
+
+.long-form-video iframe {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  position: absolute;       /* ทำให้ iframe ลอยอยู่เหนือ container */
+  top: 50%;                 /* ย้ายไปอยู่กึ่งกลางด้านบน */
+  left: 50%;                /* ย้ายไปอยู่กึ่งกลางด้านซ้าย */
+  transform: translate(-50%, -50%); /* ดึงกลับ 50% ของขนาดตัวเองเพื่อจัดกึ่งกลางที่แท้จริง */
+  width: 90%;               /* กำหนดความกว้างที่ต้องการ */
+  height: 90%;              /* กำหนดความสูงที่ต้องการ */
+
+}
+/* ย้าย Flexbox มาที่ container ที่ครอบเฉพาะวิดีโอ */
+.short_form_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* แก้ไข Selector ของหัวข้อ */
+.short-form-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.short_form {
+  border-radius: 20px;
+  width: 32%; /* กำหนดความกว้างของแต่ละคอลัมน์ */
+  position: relative;
+  /* กำหนดสัดส่วนวิดีโอแนวตั้ง (9:16) */
+  padding-bottom: 60%; /* (16 / 9) * 100 */
+  height: 0;
+  overflow: hidden;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.short_form iframe {
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* แก้ไขให้เป็น 100% เพื่อแสดงผลเต็มพื้นที่ */
+  
+}
+
+
+
+/* ผลงานภาพ */
+#img_Work_text {
+  text-align: center;
+  text-decoration: underline;
+}
+.image-work {
+  align-items: center;
+}
+.image-work img {
+  align-items: center;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* footer */
+footer {
+
+}
+.follow-here {
+  /* กำหนดให้ element ใน div นี้ชิดติดกัน */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.follow-here h6 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.follow-here img {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.social-media {
+  display: flex; /* เปิดใช้งาน Flexbox */
+  justify-content: center; /* จัดเรียงลูกๆ ให้อยู่ตรงกลางตามแนวนอน */
+  gap: 10px; /* เพิ่มระยะห่างระหว่างแต่ละไอคอน */
+  align-items: center; /* จัดกึ่งกลางไอคอนในแนวตั้ง */
+}
+.social-media img {
+  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+  transition: transform 0.2s;
+}
+/* กำหนดสไตล์เมื่อเมาส์ชี้ไปที่รูป */
+.social-media img:hover {
+  transform: scale(1.1); /* ขยายรูปภาพขึ้น 1.5 เท่า */
+  cursor: pointer; /* เพิ่มสัญลักษณ์มือเพื่อบอกว่าคลิกได้ */
+}
+
+
+/* MyWork.html */
+.portfolio-container {
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.portfolio-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.portfolio-header h2{
+  font-weight: 300;
+}
+
+.portfolio-slider {
+    padding-bottom: 20px;
+    border-radius: 20px;
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease-in-out;
+    cursor: grab;
+    user-select: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.portfolio-card {
+    flex: 0 0 auto;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    scroll-snap-align: center;
+}
+
+.portfolio-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-content h4 {
+    margin: 0 0 10px 0;
+    font-weight: 400;
+}
+
+.card-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    width: 96%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.slider-controls button {
+    pointer-events: auto;
+    background-color: #fff;
+    border: none;
+    border-radius: 20%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.slider-controls button:hover {
+    background-color: #e2eaf0;
+}
+        .portfolio-slider iframe[src="1"] { content: url('https://drive.google.com/file/d/1rU0o4rQFxRFlXlu-xMA0TjAgYlCU5WSK/preview'); }
+        .portfolio-slider img[src="2"] { content: url('https://placehold.co/300x200/3498db/FFFFFF?text=ผลงาน+2'); }
+        .portfolio-slider img[src="3"] { content: url('https://placehold.co/300x200/e74c3c/FFFFFF?text=ผลงาน+3'); }
+        .portfolio-slider img[src="4"] { content: url('https://placehold.co/300x200/9b59b6/FFFFFF?text=ผลงาน+4'); }
+        .portfolio-slider img[src="5"] { content: url('https://placehold.co/300x200/f1c40f/FFFFFF?text=ผลงาน+5'); }
+
+/* Container หลักที่ใช้ Grid */
+.our-social-header h2 {
+  font-weight: 400;
+  text-align: center;
+}
+.social-grid-container {
+    display: grid;
+    /* นี่คือคำสั่งที่ทำให้ Grid ยืดหยุ่นได้ */
+    /* auto-fit จะสร้างคอลัมน์เท่าที่จำเป็นเพื่อรองรับไอเท็ม */
+    /* minmax(250px, 1fr) กำหนดว่าแต่ละไอเท็มมีขนาดอย่างน้อย 250px และยืดหยุ่นได้ */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding-bottom: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.scoial-grid-container a {
+  text-decoration: none;
+}
+
+/* การ์ดแต่ละอัน */
+.social-grid-item {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* การเปลี่ยนสีเงาเมื่อเมาส์ชี้ */
+.social-grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* รูปภาพภายในการ์ด */
+.social-grid-item img {
+    width: 100px; /* กำหนดขนาดของรูปภาพ */
+    height: 100px;
+    border-radius: 50%; /* ทำให้รูปภาพเป็นวงกลม */
+    object-fit: cover; /* เพื่อให้รูปภาพไม่บิดเบี้ยว */;
+}
+.social-grid-item p {
+    text-decoration: none;
+}
+
+/* ชื่อผู้ใช้ */
+.social-username {
+    font-size: 1.1em;
+    font-weight: 400;
+    color: #333;
+    text-decoration: none; 
+}
+.social-follower {
+    font-size: 0.9em;
+    font-weight: 300;
+}
+
+/* สำหรับอุปกรณ์ขนาดเล็กมากๆ ให้แสดง 1 คอลัมน์ */
+@media (max-width: 500px) {
+    .social-grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+/* ลบขีดเส้นใต้และเปลี่ยนสีเมื่อยังไม่ได้ชี้เมาส์ */
+.social-link {
+    text-decoration: none;
+    color: inherit; /* ใช้สีตัวอักษรเดียวกับ element แม่ */
+}
+
+/* ลบขีดเส้นใต้เมื่อชี้เมาส์ */
+.social-link:hover {
+    text-decoration: none;
+}
+
+
+
+/* UserReview.html */
+.review-form {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: "Prompt", sans-serif;
+}
+
+.review-form h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.stars i {
+  font-size: 28px;
+  color: #ccc;
+  transition: color 0.3s;
+}
+
+.stars i.active {
+  color: #FFD700; /* สีทอง */
+}
+.review-form input[type="text"]{
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+.review-form textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  resize: none;
+  margin-bottom: 2px; /* เพิ่มระยะห่างด้านล่างของ h5 */
+}
+.addImgReview {
+  align-items: center; /* จัดเรียงองค์ประกอบในแนวตั้งให้อยู่กึ่งกลาง */
+  gap: 10px; /* เพิ่มระยะห่างระหว่าง h5 กับ input */
+  margin-bottom: 15px;
+}
+.addImgReview h5 {
+  margin-bottom: 3px; /* เพิ่มระยะห่างด้านล่างของ h5 */
+}
+
+.review-form button {
+  display: flex; /* กำหนดให้เป็น Flex Container */
+  justify-content: center; /* จัดเนื้อหาในแนวนอนให้อยู่ตรงกลาง */
+  align-items: center; /* จัดเนื้อหาในแนวตั้งให้อยู่ตรงกลาง */
+  width: 100%;
+  padding: 12px;
+  background: #0073ff;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-style: normal;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.review-form button:hover {
+  background: #005edc;
+}
+.review-header {
+  line-height: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+.review-name {
+  font-weight: 300;
+}
+.review-rating {
+  font-weight: 300;
+}
+.review-text {
+  font-weight: 300;
+}
+.review-image {
+  font-weight: 300; /* สามารถลดขนาดลงได้อีกถ้าจำเป็น */
+}
+#reviewList {
+  
+}
+
+
+/* PackagePrice.html */
+        .Package-main-container {
+            width: 100%;
+        }
+        .Package-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .Package-header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        /* CSS สำหรับ Grid Container */
+        .package-grid {
+            display: grid;
+            /* กำหนดให้แต่ละแพ็คเกจอยู่คนละแถว */
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        /* CSS สำหรับ Card แต่ละใบ */
+        .package-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            position: relative;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .package-card h3 {
+            font-size: 1.8rem;
+            color: #3498db;
+            margin-top: 0;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        
+        /* CSS สำหรับรายการคุณสมบัติ */
+        .package-card ul {
+            list-style-type: none;
+            padding-left: 20px;
+            margin: 20px 0;
+            
+        }
+        
+        .package-card ul li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+            
+        }
+
+        .notes {
+            font-size: 0.9rem;
+            color: #888;
+            border-top: 1px dashed #ccc;
+            margin-bottom: 50px;
+        }
+
+        /* CSS สำหรับปุ่ม */
+        .Package-action-button {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+            text-decoration: none;
+            align-items: center;
+        }
+
+        .Package-action-button:hover {
+            background-color: #c0392b;
+            transform: scale(1.02);
+            text-decoration: none;
+        }
+        .price-old {
+            font-weight: 300;
+            font-size: 0.9em;
+            text-decoration: line-through;
+            color: #fff;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        /* CSS สำหรับส่วนของราคาใหม่ */
+        .price-new {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            justify-content: center;
+            text-align: center;
+            gap: 5px;
+        }
+
+        /* CSS สำหรับตัวอักษร "เหลือ" */
+        .price-prefix {
+            font-size: 0.9em;
+        }
+
+        /* CSS สำหรับราคาใหม่ "300" ที่มีขนาดใหญ่ขึ้น */
+        .price-new-value {
+            font-size: 1.8em; /* เพิ่มขนาดให้ใหญ่กว่าเดิม */
+            font-weight: bold;
+        }
+        
+        .price-unit {
+            font-size: 1em;
+        }
+        .notes-describe {
+          text-indent: 20px;
+          display: block;
+        }
+
+        /* CSS สำหรับ Responsive Design บนอุปกรณ์ขนาดเล็ก */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .package-card {
+                padding: 20px;
+            }
+            .package-card h3 {
+                font-size: 1.6rem;
+           
+
+
+</style>
