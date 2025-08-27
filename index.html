@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Portfolio">
+    <meta property="og:description" content="ช่วยคุณตัดต่อให้ทำงานไวขึ้น">
+    <meta property="og:image" content="https://lh3.googleusercontent.com/pw/AP1GczPfVjZXE0ojfgbIQXfG4DZCg-mmEC6fOUk6luV9PtT-MO0Mweq56oMqQDC43bLpJyh1Cx0refuUH5fgcPCjtyc8bd2Xuid5TSLZWT_RaW0aUQ5dymv5MtzG_OC3ntv8Qd7GpGPLy53axD5L7OiNH8I=w1536-h1024-s-no-gm">
+    <meta property="og:url" content="https://script.google.com/macros/s/AKfycbxBBJntYBEtkew4hAvkje1UYENdwdHgI0-9roeMPwNC2zq5KV4CMrs-GQYZrtQp1tWARQ/exec">
+    <meta property="og:type" content="website">
+    <base target="_top">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+        <!-- Popup Section -->
+    <div id="developmentPopup" class="popup-overlay">
+        <div class="popup-content">
+            <h2>เว็บไซต์กำลังพัฒนา</h2>
+            <p>
+                อยู่ในระหว่างการพัฒนา 
+                ข้อมูลบางส่วนอาจไม่สมบูรณ์
+            </p>
+            <button class="close-btn" onclick="hidePopup()">เยี่ยมชมเลย</button>
+        </div>
+    </div>
+
+
+    <!-- EDIT HERE -->
+    <!-- Navigate Bar -->
+    <nav>
+      <ul>
+        <li><a href="<?= getUrl('Index') ?>">หน้าแรก</a></li>
+        <li><a href="<?= getUrl('MyWork') ?>">ผลงาน</a></li>
+        <li><a href="<?= getUrl('UserReview') ?>">รีวิว</a></li>
+        <li><a href="<?= getUrl('PackagePrice') ?>">แพ็คเก็ต</a></li>
+        <li><a href="<?=getUrl('MyContact') ?>">ติดต่อ</a></li>
+     </ul>
+    </nav>
+
+    <!-- HEAD -->
+    <header>
+      <h1>NGenKilLEr__</h1>
+      <p>
+        🎬 ช่วยคุณตัดต่อให้ทำงานไวขึ้น<br>
+        ⏱ ประหยัดเวลา | ✨ ได้งานสวย | ด้วยเทมเพลต & ทริค<br>
+        <b>✨ พวกเราอยากให้วิดีโอออกมามีคุณภาพมากที่สุด ✨</b>
+      </p>
+    </header>
+
+    <!-- INSIDE BODY -->
+    <section>
+      <div class="PackagePriceBase">
+        <!-- <h2> ราคาเบื้องต้น </h2> -->
+         <div class="PackagePriceBaseImg">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczPfVjZXE0ojfgbIQXfG4DZCg-mmEC6fOUk6luV9PtT-MO0Mweq56oMqQDC43bLpJyh1Cx0refuUH5fgcPCjtyc8bd2Xuid5TSLZWT_RaW0aUQ5dymv5MtzG_OC3ntv8Qd7GpGPLy53axD5L7OiNH8I=w1536-h1024-s-no-gm" alt="Package Price img">
+            <p> ดูรายละเอียดเพิ่มเติม <a href="<?= getUrl('PackagePrice') ?>">👉กดที่นี่</a>
+         </div>
+      </div>
+    </section>
+
+    <section>
+     <h2 id="MyWorkLastestList" >ผลงานวิดีโอเบื้องต้น</h2>
+     <div class="work-long_form">
+        <h3 class="long-form-title"> คลิปยาว </h3>
+         <div class="long-form-video">
+           <iframe src="https://drive.google.com/file/d/1rU0o4rQFxRFlXlu-xMA0TjAgYlCU5WSK/preview" allowfullscreen></iframe>
+         </div>
+      </div>
+      <div class="work-short_form">
+        <h3 class="short-form-title">คลิปสั้น</h3>
+          <div class="short_form_container">
+           <div class="short_form">
+             <iframe src="https://drive.google.com/file/d/1qH46R9qazLnAa0HWhVds9XdBprddGYZh/preview" frameborder="0" allowfullscreen></iframe>
+           </div>
+           <div class="short_form">
+             <iframe src="https://drive.google.com/file/d/1VfKWA62qZE1rfY3q7LTS55ZEy3RZb8QG/preview" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="short_form">
+             <iframe src="https://drive.google.com/file/d/1jCUpLJZLfAW5M5zPABkBd3JML2zoH1aR/preview" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+      </div>
+   </section>
+
+    <section>
+     <h2 id="img_Work_text">ผลงานภาพ</h2>
+     <div class="image-work">
+        <img src="null" alt="null">
+     </div>
+   </section>
+
+   <section>
+      <div class="programUsage">
+        <div class="programUsage_title">
+          <h2> Editing Tools </h2>
+        </div>
+        <div class="programUsage_img">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Adobe_Premiere_Pro_CC_icon.svg/2101px-Adobe_Premiere_Pro_CC_icon.svg.png" alt="premiere pro">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Adobe_After_Effects_CC_icon.svg/2101px-Adobe_After_Effects_CC_icon.svg.png" alt="after effect">
+          <img src="https://static.vecteezy.com/system/resources/previews/013/948/546/non_2x/capcut-logo-on-transparent-white-background-free-vector.jpg" alt="capcut">
+        </div>
+      </div>
+   </section>
+
+
+
+   <hr color="black">
+
+  <!-- FOOTER -->
+   <footer>
+    <div class="follow-here">
+     <h6>SOCIAL MEDIA</h6>
+     <div class="social-media">
+      <a href="https://linktr.ee/ngenkiller" target="_blank"><img src="https://play-lh.googleusercontent.com/x3Kpw4L_-miSO6eumND8Az4ltZ2Ype6vSrJeJJW44Jugzn8KuKXaqsu_E_Zjx0Db5Hw=s256-rw" alt="linktr.ee"></a>
+      <a href="https://www.instagram.com/ngenkiller/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/960px-Instagram_logo_2022.svg.png" alt="instagram"></a>
+      <a href="https://www.tiktok.com/@ngenkiller__th" target="_blank"><img src="https://www.cdnlogo.com/logos/t/46/tiktok-icon-black.svg" alt="tiktok-ngenkiller"></a>
+      <a href="https://www.tiktok.com/@game_jarunroj" target="_blank"><img src="https://www.cdnlogo.com/logos/t/46/tiktok-icon-black.svg" alt="tiktok-game_jarunroj"></a>
+      <a href="https://payhip.com/ngenkiller" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK-q6RuTtdHyMF4z9rSyo9ct55wAiaDblu9A&s" alt="payhip"></a>
+     </div>
+    </div>  
+     <!-- <p>Contact: your.email@example.com</p> -->
+     <p align="center">&copy; 2025 ngenkiller. All rights reserved.</p>
+    </footer>
+    <!-- END HERE -->
+    <script src="script.js"></script>
+  </body>
+</html>
