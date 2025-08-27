@@ -606,6 +606,7 @@ nav ul li a:hover::after {
   font-size: 0.9rem;
   color: #888;
   border-top: 1px dashed #ccc;
+  margin-top: 50px;
   margin-bottom: 50px;
 }
 .Package-action-button {
@@ -663,6 +664,7 @@ nav ul li a:hover::after {
   }
   .package-card {
     padding: 20px;
+
   }
   .package-card h3 {
     font-size: 1.6rem;
