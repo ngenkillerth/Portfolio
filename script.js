@@ -1,13 +1,11 @@
-
-
-    // ตรวจสอบ user agent เพื่อดูว่ากำลังเปิดในเบราว์เซอร์ของ Facebook หรือไม่
+  // ตรวจสอบ user agent เพื่อดูว่ากำลังเปิดในเบราว์เซอร์ของ Facebook หรือไม่
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   const isFacebookApp = /FBAV|FBAN|Messenger/i.test(userAgent);
 
   if (isFacebookApp) {
     // สร้างลิงก์ใหม่ที่เปิดในเบราว์เซอร์ภายนอก
     // ใช้ window.location.href แทน เพื่อให้แน่ใจว่าทำงานได้บนหลายแพลตฟอร์ม
-    window.location.href = 'https://script.google.com/macros/s/AKfycbxBBJntYBEtkew4hAvkje1UYENdwdHgI0-9roeMPwNC2zq5KV4CMrs-GQYZrtQp1tWARQ/exec';
+    window.location.href = 'file:///E:/YT/OurWebSite%20ngenkiller/Site-Portfolio-main/index.html';
   }
 
 
