@@ -1,8 +1,8 @@
   // ตรวจสอบ user agent เพื่อดูว่ากำลังเปิดในเบราว์เซอร์ของ Facebook หรือไม่
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  const isFacebookApp = /FBAV|FBAN|Messenger/i.test(userAgent);
+  const isMetaApp = /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
 
-  if (isFacebookApp) {
+  if (isMetaApp) {
     // สร้างลิงก์ใหม่ที่เปิดในเบราว์เซอร์ภายนอก
     // ใช้ window.location.href แทน เพื่อให้แน่ใจว่าทำงานได้บนหลายแพลตฟอร์ม
     window.location.href = 'https://ngenkillerth.github.io/Portfolio/';
