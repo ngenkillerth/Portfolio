@@ -668,3 +668,74 @@ nav ul li a:hover::after {
     font-size: 1.6rem;
   }
 }
+
+
+/* myContact.html */
+    .contact-section {
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .contact-section h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .messenger-btn {
+        background-color: #007bff;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 9999px;
+        font-size: 1.25rem;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        text-decoration: none;
+    }
+
+    .messenger-btn:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+    .form-input-mail, .form-textarea-mail, .form-button-mail {
+        display: block; 
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #D1D5DB;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+    }
+    .form-input-mail, .form-textarea-mail{
+      max-width: 780px;
+    }
+    .form-input-mail:focus, .form-textarea-mail:focus {
+        outline: none;
+        border-color: #2563EB;
+    }
+
+    .form-textarea-mail {
+        resize: none;
+        height: 120px;
+    }
+
+    .form-button-mail {
+        background-color: #2563EB;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        border: none;
+    }
+
+    .form-button-mail:hover {
+        background-color: #1D4ED8;
+    }
