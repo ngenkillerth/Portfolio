@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <!-- Use a templated HTML printing scriptlet to import common stylesheet -->
+    <?!= HtmlService.createHtmlOutputFromFile('Stylesheet').getContent(); ?>
+
+  </head>
+
+  <body onkeydown="return disableF12(event)">
+    <!-- EDIT HERE -->
+    <!-- Navigate Bar -->
+    <nav>
+      <ul>
+        <li><a href="<?= getUrl('Index') ?>">หน้าแรก</a></li>
+        <li><a href="<?= getUrl('MyWork') ?>">ผลงาน</a></li>
+        <li><a href="<?= getUrl('UserReview') ?>">รีวิว</a></li>
+        <li><a href="<?= getUrl('PackagePrice') ?>">แพ็คเก็ต</a></li>
+        <li><a href="<?=getUrl('MyContact') ?>">ติดต่อ</a></li>
+     </ul>
+    </nav>
+
+    <!-- HEAD -->
+    <header>
+      <h1>User Review</h1>
+    </header>
+
+    <!-- INSIDE BODY -->
+    <div class="review-form">
+     <h2>เขียนรีวิวของคุณ</h2>
+
+  <!-- ดาว -->
+  <div class="stars" id="starRating">
+    <i data-value="1">★</i>
+    <i data-value="2">★</i>
+    <i data-value="3">★</i>
+    <i data-value="4">★</i>
+    <i data-value="5">★</i>
+  </div>
+  <input type="text" id="reviewerName" placeholder="ชื่อของคุณ">
+  <!-- textarea -->
+  <textarea id="reviewText" placeholder="เขียนความคิดเห็นของคุณ..."></textarea>
+  
+  <!-- อัปโหลดรูป (optional) -->
+  <div class="addImgReview">
+    <h5> เพิ่มรูป (optional) </h3>
+    <input type="file" id="reviewImage" accept="image/*">
+  </div>
+  
+  <!-- ปุ่มส่ง -->
+  <button onclick="submitReview()">ส่งรีวิว</button>
+  </div>
+  <div id="reviewList">
+    <h3>รีวิวจากลูกค้า</h3>
+  </div>
+<script>
+      let selectedRating = 0;
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("#starRating i").forEach(star => {
+          star.addEventListener("click", function() {
+            selectedRating = this.getAttribute("data-value");
+            document.querySelectorAll("#starRating i").forEach(s => s.classList.remove("active"));
+            for (let i = 0; i < selectedRating; i++) {
+              document.querySelectorAll("#starRating i")[i].classList.add("active");
+            }
+          });
+        });
+        loadReviews();
+      });
+
+      function getBase64(file, callback) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => callback(reader.result);
+        reader.onerror = error => console.error("Error: ", error);
+      }
+
+      function submitReview() {
+        const reviewerName = document.getElementById("reviewerName").value;
+        const text = document.getElementById("reviewText").value;
+        const imageFile = document.getElementById("reviewImage").files[0];
+      
+        if (!selectedRating) return alert("กรุณาให้คะแนนดาวก่อน");
+        if (!text.trim()) return alert("กรุณาเขียนข้อความรีวิว");
+        if (!reviewerName.trim()) return alert("กรุณาใส่ชื่อของคุณก่อน");
+
+        if (imageFile) {
+          getBase64(imageFile, (base64) => {
+            sendToGoogleSheet(reviewerName, selectedRating, text, base64);
+          });
+        } else {
+          sendToGoogleSheet(reviewerName, selectedRating, text, "");
+        }
+      }
+
+      function sendToGoogleSheet(name, rating, text, image) {
+        alert("กำลังส่งรีวิว...");
+      
+        google.script.run
+          .withSuccessHandler(function(response) {
+            alert("สำเร็จ! " + response.message);
+            loadReviews(); // โหลดรีวิวใหม่หลังจากส่งสำเร็จ
+          })
+          .withFailureHandler(function(error) {
+            alert("❌ เกิดข้อผิดพลาด: " + error.message);
+          })
+          .processReview({ name: name, rating: rating, text: text, image: image });
+      }
+
+      function loadReviews() {
+        google.script.run
+          .withSuccessHandler(function(response) {
+            if (response.status === "success") {
+              displayReviews(response.reviews);
+            } else {
+              alert("❌ ไม่สามารถโหลดรีวิวได้: " + response.message);
+            }
+          })
+          .withFailureHandler(function(error) {
+            alert("❌ เกิดข้อผิดพลาดในการโหลดรีวิว: " + error.message);
+          })
+          .getReviews();
+      }
+
+function displayReviews(reviews) {
+  const reviewList = document.getElementById("reviewList");
+  reviewList.innerHTML = '<h3>รีวิวจากลูกค้า</h3>';
+  
+  if (reviews.length === 0) {
+    reviewList.innerHTML += '<p>ยังไม่มีรีวิว</p>';
+    return;
+  }
+  
+  reviews.forEach(review => {
+    const reviewDiv = document.createElement("div");
+    reviewDiv.classList.add("review-item");
+
+    const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+    
+    reviewDiv.innerHTML = `
+      <div class="review-header">
+        <p>ชื่อ : <span class="review-name">${review.name}</span></p>
+        <p>คะแนน : <span class="review-rating">${stars}</span></p>
+      
+        <p>อธิบาย : <span class="review-text">${review.text}</span></p>
+        <p>ภาพประกอบ : <span class="review-image">${review.image}</span></p>
+        <!-- ${review.imageUrl ? `<img src="${review.imageUrl}" class="review-image" alt="Review Image">` : ''} -->
+        <br><small class="review-date">วันที่รีวิว: ${review.date}</small>
+      </div>
+    `;
+    reviewList.appendChild(reviewDiv);
+  });
+}
+
+    /**
+     * Create a URL to navigate to another HTML page within the web app.
+     * This function must be included in every HTML file that needs to navigate.
+     * @param {string} pageName The name of the HTML file (e.g., 'UserReview').
+     * @return {string} The full URL.
+     */
+
+
+</script>
+
+
+   <hr color="black">
+
+  <!-- FOOTER -->
+   <footer>
+    <div class="follow-here">
+     <h6>SOCIAL MEDIA</h6>
+     <div class="social-media">
+      <a href="https://linktr.ee/ngenkiller" target="_blank"><img src="https://play-lh.googleusercontent.com/x3Kpw4L_-miSO6eumND8Az4ltZ2Ype6vSrJeJJW44Jugzn8KuKXaqsu_E_Zjx0Db5Hw=s256-rw" alt="linktr.ee"></a>
+      <a href="https://www.instagram.com/ngenkiller/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/960px-Instagram_logo_2022.svg.png" alt="instagram"></a>
+      <a href="https://www.tiktok.com/@ngenkiller__th" target="_blank"><img src="https://www.cdnlogo.com/logos/t/46/tiktok-icon-black.svg" alt="tiktok-ngenkiller"></a>
+      <a href="https://www.tiktok.com/@game_jarunroj" target="_blank"><img src="https://www.cdnlogo.com/logos/t/46/tiktok-icon-black.svg" alt="tiktok-game_jarunroj"></a>
+      <a href="https://payhip.com/ngenkiller" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK-q6RuTtdHyMF4z9rSyo9ct55wAiaDblu9A&s" alt="payhip"></a>
+     </div>
+    </div>  
+     <!-- <p>Contact: your.email@example.com</p> -->
+     <p align="center">&copy; 2025 ngenkiller. All rights reserved.</p>
+    </footer>
+    <!-- END HERE -->
+
+
+
+    <!-- Use a templated HTML printing scriptlet to import JavaScript. -->
+    <?!= HtmlService.createHtmlOutputFromFile('JavaScript').getContent(); ?>
+  </body>
+</html>
