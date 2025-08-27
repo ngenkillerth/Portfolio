@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <!-- Use a templated HTML printing scriptlet to import common stylesheet -->
+    <?!= HtmlService.createHtmlOutputFromFile('Stylesheet').getContent(); ?>
+
+  </head>
+
+  <body onkeydown="return disableF12(event)">
+    <!-- EDIT HERE -->
+    <!-- Navigate Bar -->
+    <nav>
+      <ul>
+        <li><a href="<?= getUrl('Index') ?>">หน้าแรก</a></li>
+        <li><a href="<?= getUrl('MyWork') ?>">ผลงาน</a></li>
+        <li><a href="<?= getUrl('UserReview') ?>">รีวิว</a></li>
+        <li><a href="<?= getUrl('PackagePrice') ?>">แพ็คเก็ต</a></li>
+        <li><a href="<?=getUrl('MyContact') ?>">ติดต่อ</a></li>
+     </ul>
+    </nav>
+
+    <!-- HEAD -->
+    <header>
+      <h1>Package Prices</h1>
+    </header>
+
+    <!-- INSIDE BODY -->
+  <div class="Package-main-container">
+    <div class="Package-header">
+        <!-- <h1>แพ็คเกจตัดต่อวิดีโอ</h1> -->
+        <p>รายละเอียดและราคาเบื้องต้น</p>
+    </div>
+
+    <div class="package-grid">
+        <!-- Package 1: Basic -->
+        <div class="package-card">
+            <h3> Basic Package</h3>
+            <ul>
+                <li>📌 ตัดต่อพื้นฐาน (ตัดส่วนเกิน / เรียงคลิป) </li>
+                <li>📌 ใส่เพลงประกอบพื้นหลัง </li>
+                <li>📌 ใส่โลโก้ / ชื่อแบรนด์ / ข้อความสั้นๆ </li>
+                <li>📌 ความยาวคลิปไม่เกิน 5 นาที </li>
+                <li>📌 แก้ไขงานได้ 3 ครั้ง </li>
+                <li>เหมาะสำหรับ 👇<br> คลิปรีวิวสินค้า, Vlog สั้น, คลิปลงโซเชียลทั่วไป </li>
+            </ul>
+            <a href="https://m.me/jarunroj.somsakulrungrueng?text=สนใจจ้างงานตัดต่อ+Basic+Package" class="Package-action-button" target="_blank">
+             <span class="price-old">300 ฿</span>
+             <span class="price-new">
+                <span class="price-prefix">เหลือ</span>
+                <span class="price-new-value">150</span>
+                <span class="price-unit">฿</span>
+             </span>
+            </a>
+        </div>
+
+        <!-- Package 2: Standard -->
+        <div class="package-card">
+            <h3> Standard Package</h3>
+            <ul>
+                <li>📌 ตัดต่อพร้อมใส่ Transition และ Effect เบื้องต้น</li>
+                <li>📌 ปรับสีเบื้องต้น </li>
+                <li>📌 ปรับเสียงให้ดูดีขึ้น</li>
+                <li>📌 ใส่ Subtitle (ภาษาไทยหรืออังกฤษ) แบบมาตรฐานทั้งคลิป</li>
+                <li>📌 ความยาวคลิปไม่เกิน 5 นาที</li>
+                <li>📌 แก้ไขงานได้ 3 ครั้ง</li>
+                <li>เหมาะสำหรับ 👇 <br> คลิปโปรโมทสินค้า, คอนเทนต์สำหรับ TikTok / YouTube Shorts / Reels </li>
+            </ul>
+            <a href="https://m.me/jarunroj.somsakulrungrueng?text=สนใจจ้างงานตัดต่อ+Standard+Package" class="Package-action-button" target="_blank">
+             <span class="price-old">400 ฿</span>
+             <span class="price-new">
+                <span class="price-prefix">เหลือ</span>
+                <span class="price-new-value">200</span>
+                <span class="price-unit">฿</span>
+             </span>
+            </a>
+        </div>
+
+        <!-- Package 3: Premium -->
+        <div class="package-card">
+            <h3> Premium Package</h3>
+            <ul>
+                <li>📌 ตัดต่อคุณภาพสูง พร้อม Motion Graphic / Effect</li>
+                <li>📌 ปรับโทนสีคลิป + Sound design</li>
+                <li>📌 ใส่ Subtitle / Text มีอนิเมะชั่น สีสัน</li>
+                <li>📌 Subtitle แบบครบถ้วน + ออกแบบลูกเล่น (Highlight คำสำคัญ, เอฟเฟกต์ตัวอักษร)</li>
+                <li>📌 ความยาวคลิปไม่เกิน 5 นาที</li>
+                <li>📌 แก้ไขงานได้ 3 ครั้ง</li>
+                <li>เหมาะสำหรับ 👇<br> คลิปโฆษณา, วิดีโอโปรโมทแบรนด์, คลิปพรีเมียมสำหรับ YouTube </li>
+            </ul>
+            <a href="https://m.me/jarunroj.somsakulrungrueng?text=สนใจจ้างงานตัดต่อ+Premium+Package" class="Package-action-button" target="_blank">
+             <span class="price-old">600 ฿</span>
+             <span class="price-new">
+                <span class="price-prefix">เหลือ</span>
+                <span class="price-new-value">300</span>
+                <span class="price-unit">฿</span>
+             </span>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="notes">
+        <p><strong>หมายเหตุ:</strong></p>
+        <p>
+            <span class="notes-describe">
+            • ทุกแพ็คเกจสามารถแก้ไขได้ฟรี 3 ครั้ง <br>
+            </span>
+            <span class="notes-describe">
+            • ถ้าฟุตเทจเกิน 5 นาที คิดเพิ่ม 50 บาท / 5 นาที
+            </span>
+            <span class="notes-describe">
+            • สามารถชำระเงินที่หลังก่อนส่งงานจริงได้ (ยังไม่ชำระ งานติดลายน้ำ)
+            </span>
+            <span class="notes-describe">
+            • เวลาในการทำงาน: 1–5 วัน (รวม render เสร็จ)
+            </span>
+            <span class="notes-describe">
+            • ราคาที่แจ้งไว้เป็นราคาเบื้องต้น (ราคาอาจมีการเปลี่ยนแปลงขึ้นอยู่กับความซับซ้อนและดีเทลงาน)
+            </span>
+        </p>
+    </div>
+  </div>
+
+
+
+  <hr color="black">
+
+
+
+  <!-- FOOTER -->
+   <footer>
+    <div class="follow-here">
+     <h6>SOCIAL MEDIA</h6>
+     <div class="social-media">
+      <a href="https://linktr.ee/ngenkiller" target="_blank"><img src="https://play-lh.googleusercontent.com/x3Kpw4L_-miSO6eumND8Az4ltZ2Ype6vSrJeJJW44Jugzn8KuKXaqsu_E_Zjx0Db5Hw=s256-rw" alt="linktr.ee"></a>
+      <a href="https://www.instagram.com/ngenkiller/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/960px-Instagram_logo_2022.svg.png" alt="instagram"></a>
+      <a href="https://www.tiktok.com/@ngenkiller__th" target="_blank"><img src="https://www.cdnlogo.com/logos/t/46/tiktok-icon-black.svg" alt="tiktok-ngenkiller"></a>
+      <a href="https://www.tiktok.com/@game_jarunroj" target="_blank"><img src="https://www.cdnlogo.com/logos/t/46/tiktok-icon-black.svg" alt="tiktok-game_jarunroj"></a>
+      <a href="https://payhip.com/ngenkiller" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK-q6RuTtdHyMF4z9rSyo9ct55wAiaDblu9A&s" alt="payhip"></a>
+     </div>
+    </div>  
+     <!-- <p>Contact: your.email@example.com</p> -->
+     <p align="center">&copy; 2025 ngenkiller. All rights reserved.</p>
+    </footer>
+    <!-- END HERE -->
+    <script>
+    /**
+     * Create a URL to navigate to another HTML page within the web app.
+     * This function must be included in every HTML file that needs to navigate.
+     * @param {string} pageName The name of the HTML file (e.g., 'UserReview').
+     * @return {string} The full URL.
+     */
+
+    </script>
+
+
+    <!-- Use a templated HTML printing scriptlet to import JavaScript. -->
+    <?!= HtmlService.createHtmlOutputFromFile('JavaScript').getContent(); ?>
+  </body>
+</html>
