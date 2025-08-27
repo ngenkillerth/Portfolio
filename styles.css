@@ -180,7 +180,6 @@ nav ul li a:hover::after {
 }
 .PackagePriceBaseImg a {
   text-decoration: none;
-  color: inherit;
 }
 .PackagePriceBaseImg a:hover {
   color: #0073ff;
@@ -188,6 +187,7 @@ nav ul li a:hover::after {
 .PackagePriceBaseImg img {
   width: 100%;
   height: auto;
+  border-radius: 20px 20px 20px 20px;
   display: block;
 }
 
