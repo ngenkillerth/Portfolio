@@ -25,9 +25,9 @@ function handleDevToolsCheck() {
 }
 
 // --- แก้ปัญหา redirect loop ---
-if (!isMetaApp) {
+/* if (!isMetaApp) {
     handleDevToolsCheck();
-}
+} */
 
 
 
@@ -79,67 +79,6 @@ window.onload = checkDevTools;
   });
 
 
-
-/* UserReview.html */
-let selectedRating = 0;
-
-// ⭐ จัดการดาว
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("#starRating i").forEach(star => {
-    star.addEventListener("click", function() {
-      selectedRating = this.getAttribute("data-value");
-      document.querySelectorAll("#starRating i").forEach(s => s.classList.remove("active"));
-      for (let i = 0; i < selectedRating; i++) {
-        document.querySelectorAll("#starRating i")[i].classList.add("active");
-      }
-    });
-  });
-});
-
-// 📷 ฟังก์ชันแปลงรูปเป็น Base64
-function getBase64(file, callback) {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = () => callback(reader.result);
-  reader.onerror = error => console.error("Error: ", error);
-}
-
-// 🚀 ส่งรีวิว
-function submitReview() {
-  const reviewerName = document.getElementById("reviewerName").value;
-  const text = document.getElementById("reviewText").value;
-  const imageFile = document.getElementById("reviewImage").files[0];
-
-  if (!selectedRating) return alert("กรุณาให้คะแนนดาวก่อน");
-  if (!text.trim()) return alert("กรุณาเขียนข้อความรีวิว");
-  if (!reviewerName.trim()) return alert("กรุณาใส่ชื่อของคุณก่อน");
-
-  if (imageFile) {
-    getBase64(imageFile, (base64) => {
-      sendToGoogleSheet(reviewerName, selectedRating, text, base64);
-    });
-  } else {
-    sendToGoogleSheet(reviewerName, selectedRating, text, "");
-  }
-}
-
-// 📡 ส่งข้อมูลไป Apps Script
-function sendToGoogleSheet(name, rating, text, image) {
-  alert("กำลังส่งรีวิว...");
-
-  google.script.run
-    .withSuccessHandler(function(response) {
-      alert("สำเร็จ! " + response.message);
-      // โหลดรีวิวใหม่ทันทีหลังจากส่งสำเร็จ
-      loadReviews();
-    })
-    .withFailureHandler(function(error) {
-      alert("❌ เกิดข้อผิดพลาด: " + error.message);
-    })
-    .processReview({ name: name, rating: rating, text: text, image: image });
-}
-
-
 // MyWork.html
 document.addEventListener('DOMContentLoaded', () => {
     const slider = document.getElementById('portfolioSlider');
@@ -186,3 +125,62 @@ document.addEventListener('DOMContentLoaded', () => {
         slider.scrollLeft -= cardWidth;
     });
 });
+
+
+// userReview.html
+// ฟังก์ชันสำหรับดึงข้อมูลและแสดงผลรีวิว
+async function fetchReviews() {
+    const SPREADSHEET_ID = '1ytQuhzz63mLqiEKP9ozPT8LLqerFS1wzaHVH6JzKtIw'; 
+    const SHEET_ID = '269614832'; 
+
+// URL สำหรับดึงข้อมูลในรูปแบบ JSON โดยใช้ Google Visualization API
+    const API_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${SHEET_ID}`;
+
+// ฟังก์ชันสำหรับสร้างดาวตามคะแนน
+    function createStars(rating) {
+    let stars = '';
+    const maxRating = 5;
+    for (let i = 0; i < maxRating; i++) {
+        if (i < rating) {
+            stars += '⭐'; 
+        } else {
+            stars += '☆'; 
+        }
+    }
+    return stars;
+    }
+    const reviewsContainer = document.getElementById('reviews-container');
+    try {
+        const response = await fetch(API_URL);
+        const dataText = await response.text();
+        const jsonpData = dataText.substring(47, dataText.length - 2);
+        const jsonData = JSON.parse(jsonpData);
+        reviewsContainer.innerHTML = '';
+
+        if (jsonData.table.rows.length > 0) {
+            jsonData.table.rows.forEach(row => {
+                const timestamp = row.c[0] ? row.c[0].f || row.c[0].v : 'ไม่ระบุวันที่';
+                const name = row.c[1] ? row.c[1].v : 'ไม่ระบุชื่อ';
+                const rating = row.c[2] ? row.c[2].v : 0;
+                const message = row.c[3] ? row.c[3].v : 'ไม่มีคำอธิบาย';
+
+                const reviewCard = document.createElement('div');
+                reviewCard.classList.add('review-card');
+                reviewCard.innerHTML = `
+                    <div class="review-header">
+                        <span class="review-title">ผู้รีวิว: ${name}</span>
+                        <span class="review-date">${timestamp}</span>
+                    </div>
+                    <div class="review-rating">${createStars(rating)}</div>
+                    <p class="review-message mt-2">คำอธิบาย: ${message}</p>
+                `;
+                reviewsContainer.appendChild(reviewCard);
+            });
+        } else {
+            reviewsContainer.innerHTML = `<p class="text-center text-gray-500">ยังไม่มีรีวิวในตอนนี้</p>`;
+        } 
+    } catch (error) {
+        console.error('Error fetching reviews:', error);
+        reviewsContainer.innerHTML = `<p class="text-center text-red-500">ไม่สามารถดึงข้อมูลรีวิวได้</p>`;
+    }
+}

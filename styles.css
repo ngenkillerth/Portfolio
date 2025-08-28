@@ -451,106 +451,41 @@ nav ul li a:hover::after {
         .star-rating .star.selected {
             color: gold;
         }
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            padding: 1rem;
-        }
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            border: 1px solid #d1d5db;
-            transition: border-color 0.2s;
-        }
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        .container-review {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 2rem;
+            margin-bottom: 50px;
         }
         .review-card {
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-.review-submit {
-  background-image: linear-gradient(to right, #4F89E7 0%, #764BA2 100%);
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 9999px; /* Fully rounded corners */
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  margin-top: 10px;
-}
-
-.review-submit:hover {
-  background-position: right center; /* Change gradient direction on hover */
-  transform: translateY(-2px); /* Lift the button slightly */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-}
-
-.review-submit:active {
-  transform: translateY(0); /* Press down effect */
-}
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            max-width: 90%;
-        }
-
-        .modal-content h3 {
-            font-size: 1.5rem;
-            font-weight: bold;
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
             margin-bottom: 1rem;
-            color: #333;
+            border: 1px solid #e5e7eb;
         }
-        
-        .modal-content button {
-            background-color: #2563EB;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            margin-top: 1rem;
-            transition: background-color 0.2s;
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
         }
-
-        .modal-content button:hover {
-            background-color: #1D4ED8;
+        .review-title {
+            font-weight: 600;
+            color: #1f2937;
         }
-        .backToIndex {
-            background-color: #007BFF; /* สีน้ำเงินสดใส */
-            color: #fff;
-           border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            font-weight: 500;
+        .review-date {
+            font-size: 0.875rem;
+            color: #6b7280;
         }
-        .backToIndex:hover {
-            background-color: #0056b3; /* สีเข้มขึ้นเมื่อเอาเมาส์ไปชี้ */
-            transform: translateY(-2px); /* ปุ่มขยับเล็กน้อยเพื่อบอกว่ากดได้ */
+        .review-message {
+            color: #374151;
+            line-height: 1.5;
+        }
+        .review-rating {
+            color: gold;
+            font-size: 1.25rem;
         }
 
 

@@ -31,50 +31,25 @@
         </p>
 
         <!-- Review Form Section -->
-        <section class="mb-10">
-            <h2 class="review-form">ส่งรีวิวของคุณ</h2>
-            <form id="reviewForm" class="space-y-4">
-                <div>
-                    <label for="name" class="review-form-yourname">ชื่อของคุณ</label>
-                    <input type="text" id="name" name="name" class="form-input" placeholder="เช่น สมชาย" required>
-                </div>
-                <div>
-                    <label for="rating" class="review-form-star-rating">ให้คะแนน</label>
-                    <div class="star-rating">
-                        <span class="star" data-value="1">★</span>
-                        <span class="star" data-value="2">★</span>
-                        <span class="star" data-value="3">★</span>
-                        <span class="star" data-value="4">★</span>
-                        <span class="star" data-value="5">★</span>
-                        <input type="hidden" id="ratingInput" name="rating" value="0" required>
-                    </div>
-                </div>
-                <div>
-                    <label for="reviewText" class="block text-gray-600 font-semibold mb-1">เขียนรีวิว</label>
-                    <textarea id="reviewText" name="reviewText" rows="4" class="form-textarea" placeholder="บอกเราเกี่ยวกับประสบการณ์ของคุณ" required></textarea>
-                </div>
-                <div>
-                    <label for="reviewImage" class="block text-gray-600 font-semibold mb-1">อัปโหลดรูปภาพ (ไม่บังคับ)</label>
-                    <input type="file" id="reviewImage" name="reviewImage" accept="image/*" class="form-input">
-                </div>
-                <button type="submit" class="review-submit"> ส่งรีวิว </button>
-            </form>
-            <div id="statusMessage" class="mt-4 text-center font-bold"></div>
-        </section>
-
-        <hr class="my-10 border-gray-300">
-
-        <!-- Reviews Display Section -->
-        <section>
-            <h2 class="review-list">รีวิวล่าสุดจากลูกค้า</h2>
-            <div id="reviewsContainer">
-                <!-- Reviews will be dynamically inserted here by JavaScript -->
-                <div class="review-list-wait" id="loadingMessage">
-                    กำลังโหลดรีวิว...
-                </div>
-            </div>
-        </section>
+ <section class="input-sheet">
+    <div class="container-forms">
+        <div id="ff-compose"></div>
+            <script class="form-box" async defer src="https://formfacade.com/include/105722439914985616124/form/1FAIpQLSdByzIv8BYjXPUL2hYvxOd_imq42bJ2-CUSsOG4LYeYltf8SQ/classic.js?div=ff-compose"></script>
+        </div>
     </div>
+ </section>
+
+ <hr class="my-8">
+
+ <section class="information-sheets">
+    <div class="container-review">
+        <!-- Section: Display Reviews from Google Sheets -->
+        <h2 class="review-title">รีวิวล่าสุดจากลูกค้า</h2>
+        <div id="reviews-container">
+            <p class="loading-text text-center text-gray-500 italic">กำลังดึงข้อมูลรีวิว... กรุณารอสักครู่</p>
+        </div>
+    </div>
+ </section>
 
    <hr color="black">
 
@@ -94,16 +69,21 @@
      <p align="center">&copy; 2025 ngenkiller. All rights reserved.</p>
     </footer>
     <!-- Modal for "Under Development" message -->
-    <div id="developmentModal" class="modal-overlay">
+    <!-- <div id="developmentModal" class="modal-overlay">
         <div class="modal-content">
             <h3>หน้านี้อยู่ในระหว่างการพัฒนา</h3>
             <p>ขออภัยในความไม่สะดวก กรุณากลับไปที่หน้าแรกเพื่อเข้าชมเนื้อหาอื่น</p>
             <button class="backToIndex"onclick="window.location.href='index.html'">กลับไปหน้าแรก</button>
         </div>
-    </div>
+    </div> -->
     <!-- END HERE -->
 
 
     <script src="script.js"></script>
+        <script>
+        window.onload = function() {
+            fetchReviews();
+        }
+    </script>
   </body>
 </html>
