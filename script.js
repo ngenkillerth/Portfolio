@@ -1,31 +1,26 @@
-        // Get the entire document body
-        const body = document.body;
-
-        // Prevent right-click (optional, but often used together)
-        body.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // Prevent text selection (highlighting)
-        body.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-        });
-
-        // Prevent dragging of any element (images, text)
-        body.addEventListener('dragstart', function(e) {
-            e.preventDefault();
-        });
-
-        // Prevent copying using Ctrl+C or Cmd+C
-        document.addEventListener('keydown', function(e) {
-            // Check for Ctrl/Cmd key and 'C' key
-            if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+// Get the entire document body
+const body = document.body;
+// Prevent right-click (optional, but often used together)
+body.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+});
+ // Prevent text selection (highlighting)
+body.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+});
+// Prevent dragging of any element (images, text)
+body.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+});
+// Prevent copying using Ctrl+C or Cmd+C
+document.addEventListener('keydown', function(e) {
+// Check for Ctrl/Cmd key and 'C' key
+        if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
                 e.preventDefault();
-            }
-        });
+                }
+ });
 
-const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-const isMetaApp = /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
+
 
 function handleDevToolsCheck() {
     const checkDevTools = () => {
@@ -39,17 +34,19 @@ function handleDevToolsCheck() {
         }
     };
 
-    setInterval(checkDevTools, 1000);
 
-    document.addEventListener("keydown", function(e) {
+document.addEventListener("keydown", function(e) {
         if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key.toLowerCase() === "i"))) {
             e.preventDefault();
             alert("⚠ กรุณาปิด Console (F12) เพื่อใช้งานเว็บไซต์");
             return false;
         }
     });
+setInterval(checkDevTools, 1000);
 }
 
+const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+const isMetaApp = /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
 // เช็ค Meta App
 if (!isMetaApp) {
     handleDevToolsCheck();
@@ -66,7 +63,7 @@ function hidePopup() {
 
   document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
-    alert('คลิกขวาถูกปิดใช้งาน');
+    alert('⚠ คลิกขวาถูกปิดใช้งาน');
   });
 
 var devtools = /./;
@@ -75,8 +72,7 @@ devtools.toString = function() {
 };
 
 
-// Run the function when the page loads
-window.onload = checkDevTools;
+
 
 // Your other JavaScript functions and code go here
 
