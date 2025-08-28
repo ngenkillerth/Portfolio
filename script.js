@@ -24,10 +24,10 @@ function handleDevToolsCheck() {
     });
 }
 
-// --- แก้ปัญหา redirect loop ---
-/* if (!isMetaApp) {
+// เช็ค Meta App
+if (!isMetaApp) {
     handleDevToolsCheck();
-} */
+}
 
 
 
