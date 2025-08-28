@@ -1,8 +1,8 @@
 // Get the entire document body
 const body = document.body;
-// Prevent right-click (optional, but often used together)
-body.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    alert('⚠ คลิกขวาถูกปิดใช้งาน');
 });
  // Prevent text selection (highlighting)
 body.addEventListener('selectstart', function(e) {
@@ -11,25 +11,41 @@ body.addEventListener('selectstart', function(e) {
 // Prevent dragging of any element (images, text)
 body.addEventListener('dragstart', function(e) {
         e.preventDefault();
+        alert("⚠ ไม่อนุญาติการกระทำดังกล่าว")
 });
 // Prevent copying using Ctrl+C or Cmd+C
 document.addEventListener('keydown', function(e) {
 // Check for Ctrl/Cmd key and 'C' key
         if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
                 e.preventDefault();
+                alert("⚠ ไม่อนุญาติการกระทำดังกล่าว")
                 }
- });
+});
 
+// Function to hide the popup
+function hidePopup() {
+    const popup = document.getElementById('developmentPopup');
+    popup.style.display = 'none';
+}
 
-
+function isMetaAppWeb() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    return /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
+}
 function handleDevToolsCheck() {
+    document.addEventListener("keydown", e => {
+    if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "i")) {
+        e.preventDefault();
+        alert("⚠ ไม่อนุญาติให้ใช้ Console");
+        }
+    });
     const checkDevTools = () => {
         const threshold = 160;
         let widthThreshold = window.outerWidth - window.innerWidth > threshold;
         let heightThreshold = window.outerHeight - window.innerHeight > threshold;
 
         if (widthThreshold || heightThreshold) {
-            alert("⚠ กรุณาปิด Console (F12) เพื่อใช้งานเว็บไซต์");
+            alert("⚠ กรุณาปิด Console เพื่อใช้งานเว็บไซต์");
             window.location.href = "about:blank";
         }
     };
@@ -45,31 +61,15 @@ document.addEventListener("keydown", function(e) {
 setInterval(checkDevTools, 1000);
 }
 
-const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-const isMetaApp = /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
+
 // เช็ค Meta App
-if (!isMetaApp) {
+if (!isMetaAppWeb()) {
     handleDevToolsCheck();
 }
 
-
-
   
-// Function to hide the popup
-function hidePopup() {
-    const popup = document.getElementById('developmentPopup');
-    popup.style.display = 'none';
-}
 
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    alert('⚠ คลิกขวาถูกปิดใช้งาน');
-  });
 
-var devtools = /./;
-devtools.toString = function() {
-    this.opened = true;
-};
 
 
 
