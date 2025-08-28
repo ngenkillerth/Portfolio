@@ -1,3 +1,29 @@
+        // Get the entire document body
+        const body = document.body;
+
+        // Prevent right-click (optional, but often used together)
+        body.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Prevent text selection (highlighting)
+        body.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        // Prevent dragging of any element (images, text)
+        body.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+
+        // Prevent copying using Ctrl+C or Cmd+C
+        document.addEventListener('keydown', function(e) {
+            // Check for Ctrl/Cmd key and 'C' key
+            if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+                e.preventDefault();
+            }
+        });
+
 const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 const isMetaApp = /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
 
@@ -77,6 +103,9 @@ window.onload = checkDevTools;
     nav.classList.remove("scrolled");
   }
   });
+
+
+
 
 
 // MyWork.html
@@ -184,3 +213,4 @@ async function fetchReviews() {
         reviewsContainer.innerHTML = `<p class="text-center text-red-500">ไม่สามารถดึงข้อมูลรีวิวได้</p>`;
     }
 }
+
