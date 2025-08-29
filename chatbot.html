@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot บริการตัดต่อวิดีโอ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .chatbot-container {
+            width: 350px;
+            height: 500px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            font-size: 1.2em;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .chat-window {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background-color: #e9ecef;
+            align-self: flex-start;
+        }
+
+        .chat-input-container {
+            display: flex;
+            padding: 15px;
+            background-color: #fff;
+        }
+
+        #user-input {
+            flex-grow: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        #user-input:focus {
+            border-color: #007bff;
+        }
+
+        #send-button {
+            margin-left: 10px;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #send-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chatbot-container">
+    <div class="chat-header">
+        Video Editing Chatbot 🤖
+    </div>
+    <div id="chat-window" class="chat-window"></div>
+    <div class="chat-input-container">
+        <input type="text" id="user-input" placeholder="พิมพ์ข้อความของคุณ..." autofocus>
+        <button id="send-button">ส่ง</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatWindow = document.getElementById('chat-window');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        // *** เปลี่ยน YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL เป็น URL ที่คุณได้จากขั้นตอนที่ 1 ***
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzIKLk7qY8kRyc-mPvX8Vt7BJLgsoPGopq0yphTGWSt-GnnD5MLH4_vYwjbXE-2bOQIlg/exec';
+
+        function addMessageToChat(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = text;
+            messageDiv.classList.add('message', `${sender}-message`);
+            chatWindow.appendChild(messageDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            addMessageToChat(message, 'user');
+            userInput.value = '';
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message }),
+                });
+
+                const data = await response.json();
+                if (data.response) {
+                    addMessageToChat(data.response, 'bot');
+                } else {
+                    addMessageToChat('ขออภัยค่ะ มีข้อผิดพลาดเกิดขึ้น โปรดลองอีกครั้ง.', 'bot');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessageToChat('มีปัญหาในการเชื่อมต่อ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ.', 'bot');
+            }
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
