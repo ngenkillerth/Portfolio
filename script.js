@@ -210,3 +210,102 @@ async function fetchReviews() {
     }
 }
 
+
+// AI Chatbox
+const API_URL = "https://script.google.com/macros/s/AKfycbzIKLk7qY8kRyc-mPvX8Vt7BJLgsoPGopq0yphTGWSt-GnnD5MLH4_vYwjbXE-2bOQIlg/exec";
+
+// ฟังก์ชันสำหรับบันทึกประวัติการสนทนา
+function saveChatHistory() {
+    const chatbox = document.getElementById("chatbox");
+    const messages = Array.from(chatbox.children).map(msg => ({
+        text: msg.innerText,
+        cls: msg.classList.contains('user') ? 'user' : 'bot'
+    }));
+
+    // บันทึกเวลาปัจจุบันในรูปแบบตัวเลข (milliseconds)
+    const dataToSave = {
+        history: messages,
+        timestamp: Date.now() 
+    };
+    
+    localStorage.setItem('chatData', JSON.stringify(dataToSave));
+}
+
+// ฟังก์ชันสำหรับโหลดประวัติการสนทนา
+function loadChatHistory() {
+    const chatbox = document.getElementById("chatbox");
+    const storedData = localStorage.getItem('chatData');
+
+    if (storedData) {
+        const data = JSON.parse(storedData);
+        const savedTimestamp = data.timestamp;
+        const now = Date.now();
+        
+        // 86400000 คือจำนวน milliseconds ใน 24 ชั่วโมง
+        const ONE_DAY_IN_MS = 86400000;
+
+        if (now - savedTimestamp > ONE_DAY_IN_MS) {
+            localStorage.removeItem('chatData');
+            console.log("Chat history has been cleared automatically after 24 hours.");
+            return;
+        }
+
+        const messages = data.history;
+        messages.forEach(msg => {
+            appendMessage(msg.text, msg.cls);
+        });
+    }
+}
+ 
+async function sendMessage() {
+    const input = document.getElementById("message-chatbox");
+    const chatbox = document.getElementById("chatbox");
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
+
+    // แสดงข้อความผู้ใช้
+    appendMessage(userMsg, "user");
+    input.value = "";
+    saveChatHistory();
+
+    // แสดงข้อความ "กำลังตอบ..."
+    const typingMsg = appendMessage("กำลังตอบ", "bot typing");
+
+    try {
+        const res = await fetch(`${API_URL}?message=${encodeURIComponent(userMsg)}`);
+        const data = await res.json();
+
+        // เมื่อได้คำตอบแล้ว ให้นำข้อความจริงไปใส่และลบคลาส typing
+        typingMsg.innerText = data.reply || "เกิดข้อผิดพลาด";
+        typingMsg.classList.remove('typing'); // <-- ลบคลาส typing
+    } catch (err) {
+        typingMsg.innerText = "❌ Error: " + err.message;
+        typingMsg.classList.remove('typing'); // <-- ลบคลาส typing
+    }
+    saveChatHistory();
+
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
+
+function appendMessage(text, cls) {
+    const chatbox = document.getElementById("chatbox");
+    const div = document.createElement("div");
+    div.className = "msg " + cls;
+    
+    // ตั้งค่าข้อความเริ่มต้น
+    div.innerText = text;
+
+    chatbox.appendChild(div);
+    chatbox.scrollTop = chatbox.scrollHeight;
+    return div; // คืน element เพื่อแก้ไขข้อความ
+}
+
+// เพิ่มการกด Enter เพื่อส่งข้อความ
+document.getElementById("message-chatbox").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+});
+
+// โหลดประวัติการสนทนาเมื่อหน้าเว็บโหลด
+window.onload = loadChatHistory;
