@@ -931,3 +931,28 @@ nav ul li a:hover::after {
         opacity: 0.2;
     }
 }
+
+
+/* privacy-policy.html */
+#mailtolink {
+  text-decoration: none;
+}
+
+
+
+/*about us*/
+        .aboutus-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .aboutus-section {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .aboutus-emojis {
+            font-size: 1.5em;
+        }
