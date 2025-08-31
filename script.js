@@ -28,6 +28,36 @@ function hidePopup() {
     popup.style.display = 'none';
 }
 
+// Function to hide Welcome Screen
+function hideWelcomeScreen() {
+        const welcomeScreen = document.querySelector('.welcome-container');
+        const particlesContainer = document.querySelector('.particles');
+
+        welcomeScreen.style.animation = 'fadeOut 1s forwards';
+        if (particlesContainer) {
+            particlesContainer.style.animation = 'fadeOut 1s forwards';
+        }
+        welcomeScreen.style.display = 'none';
+        particlesContainer.style.display = 'none';
+}
+// Create particles
+const particlesContainer = document.createElement('div');
+      particlesContainer.className = 'particles';
+document.body.appendChild(particlesContainer);
+    for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.width = `${Math.random() * 5 + 2}px`;
+        particle.style.height = particle.style.width;
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        particle.style.setProperty('--x', `${(Math.random() - 0.5) * 500}px`);
+        particle.style.setProperty('--y', `${(Math.random() - 0.5) * 500}px`);
+        particlesContainer.appendChild(particle);
+}
+
+
 function isMetaAppWeb() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     return /FBAV|FBAN|Messenger|Instagram/i.test(userAgent);
@@ -49,9 +79,7 @@ function handleDevToolsCheck() {
             window.location.href = "about:blank";
         }
     };
-
-
-document.addEventListener("keydown", function(e) {
+    document.addEventListener("keydown", function(e) {
         if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key.toLowerCase() === "i"))) {
             e.preventDefault();
             alert("⚠ กรุณาปิด Console (F12) เพื่อใช้งานเว็บไซต์");
