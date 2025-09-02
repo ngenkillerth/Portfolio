@@ -597,6 +597,13 @@ nav ul li a:hover::after {
 .category {
   margin-bottom: 3rem;
 }
+.category-container {
+    border-radius: 20px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 50px;
+}
 .category h3 {
   font-size: 2rem;
   font-weight: bold;
@@ -636,6 +643,7 @@ nav ul li a:hover::after {
   margin-bottom: 2rem;
 }
 .category-nav button {
+  font-family: kanit;
   background-color: #f1f1f1;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -643,6 +651,7 @@ nav ul li a:hover::after {
   font-weight: 500;
   cursor: pointer;
   border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, color 0.3s ease;
   text-decoration: none;
   color: #333;
