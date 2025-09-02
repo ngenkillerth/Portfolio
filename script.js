@@ -40,22 +40,6 @@ function hideWelcomeScreen() {
         welcomeScreen.style.display = 'none';
         particlesContainer.style.display = 'none';
 }
-// Create particles
-const particlesContainer = document.createElement('div');
-      particlesContainer.className = 'particles';
-document.body.appendChild(particlesContainer);
-    for (let i = 0; i < 50; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.width = `${Math.random() * 5 + 2}px`;
-        particle.style.height = particle.style.width;
-        particle.style.left = `${Math.random() * 100}vw`;
-        particle.style.top = `${Math.random() * 100}vh`;
-        particle.style.animationDelay = `${Math.random() * 5}s`;
-        particle.style.setProperty('--x', `${(Math.random() - 0.5) * 500}px`);
-        particle.style.setProperty('--y', `${(Math.random() - 0.5) * 500}px`);
-        particlesContainer.appendChild(particle);
-}
 
 
 function isMetaAppWeb() {
