@@ -96,9 +96,8 @@ if (!isMetaAppWeb()) {
 }
 // Array of sample AI-generated artworks
         const artworks = [
-            { id: 1, title: 'เมืองลอยฟ้า', category: 'scifi', url: 'https://placehold.co/800x600/6366F1/F9FAFB?text=Sci-Fi+1', description: 'เมืองในอนาคตที่ลอยอยู่เหนือเมฆ' },
-            { id: 2, title: 'ป่าแห่งแสง', category: 'fantasy', url: 'https://placehold.co/800x600/EC4899/F9FAFB?text=Fantasy+1', description: 'ต้นไม้เรืองแสงท่ามกลางความมืด' },
-            { id: 3, title: 'รหัสลับ', category: 'abstract', url: 'https://placehold.co/800x600/10B981/F9FAFB?text=Abstract+1', description: 'ภาพที่แสดงถึงความซับซ้อนของข้อมูล' },
+            { id: 1, title: 'Minecraft Style', category: 'minecraft', url: 'https://lh3.googleusercontent.com/pw/AP1GczMugjtXoG5UvqwkeP2ZlQFC36mvLQIhBy6LBTnw5Sk2cNEX_3yRkYCnS8yBM4t8fMhSUCzAprAMYUu_HHtBcYc6c_nejgxFA2QIJ5aYANscLlpRTl8k4WWZoUi9bo69uuHP6mTbTMW-s7yQCbUnxfoU=w864-h1184-s-no-gm?authuser=0', description: 'เจนภาพสไตล์ Minecraft' },
+            { id: 2, title: 'Minecraft Style', category: 'minecraft', url: 'https://lh3.googleusercontent.com/pw/AP1GczM4qxESS59orQtRn_lT3rAgL9O7sGcLHTQDP_W6aKR3GDvKkAvA1Kj7ubX08I4GVG3oCCgumEXWMVjOYoSUfXDF6nAjRsMzfqmftOar43GCHcP7LLSxyEAtWMgyauqFi04MwEUAXlO3wRg8m-BGlZk-=w832-h1248-s-no-gm?authuser=0', description: 'เจนภาพสไตล์ Minecraft' },
         ];
 
         // Get DOM elements
@@ -134,6 +133,7 @@ if (!isMetaAppWeb()) {
                 case 'scifi': return 'แนวไซไฟ';
                 case 'fantasy': return 'แนวแฟนตาซี';
                 case 'abstract': return 'แนวนามธรรม';
+                case 'minecraft': return 'แนวมายคราฟ';
                 default: return '';
             }
         };
