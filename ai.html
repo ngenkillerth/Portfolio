@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/pw/AP1GczOQLaP_AwKysacw5jxzD_bQP65RftaEKfx1as-BwlPkm-I-CCKEYfmO56TLS5Z6Nc_RJ_K_7IoGTo27D1iAdcOMdgHPYC2KcP-y1x3lnS4L9IF9p1saLanMoHmjRprNPWJ0wKPiEsgqZlWBRmBzIo5z=w500-h500-s-no-gm?authuser=0">
+    <title>ผลงาน AI</title>
+    <link rel="stylesheet" href="ai-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet">
+    <title> Our Portfolio | NewFastCreative </title>
+  </head>
+
+  <body>
+    <!-- EDIT HERE -->
+    <!-- Navigate Bar -->
+<nav>
+  <ul>
+    <li><a href="index.html">หน้าแรก</a></li>
+    <li><a href="myWork.html">ผลงาน</a></li>
+    <li><a href="userReview.html">รีวิว</a></li>
+    <li><a href="packagePrice.html">แพ็คเกจ</a></li>
+    <li><a href="ai.html">AI</a></li>
+    <li><a href="myContact.html">ติดต่อ</a></li>
+  </ul>
+</nav>
+    <!-- INSIDE BODY -->
+<!-- Header Section -->
+    <header class="text-center mb-10 md:mb-16">
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-2">
+            แกลเลอรีผลงาน AI
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400">สำรวจขอบเขตใหม่ของความคิดสร้างสรรค์ที่สร้างโดยปัญญาประดิษฐ์</p>
+    </header>
+
+    <!-- Category Filter Section -->
+    <section class="flex flex-wrap justify-center space-x-2 md:space-x-4 mb-10">
+        <button id="all-btn" class="category-tab px-4 py-2 rounded-full font-medium text-sm md:text-base border border-gray-700 bg-gray-800 hover:bg-gray-700 active" onclick="filterGallery('all')">
+            ทั้งหมด
+        </button>
+        <button id="scifi-btn" class="category-tab px-4 py-2 rounded-full font-medium text-sm md:text-base border border-gray-700 bg-gray-800 hover:bg-gray-700" onclick="filterGallery('scifi')">
+            ไซไฟ
+        </button>
+        <button id="fantasy-btn" class="category-tab px-4 py-2 rounded-full font-medium text-sm md:text-base border border-gray-700 bg-gray-800 hover:bg-gray-700" onclick="filterGallery('fantasy')">
+            แฟนตาซี
+        </button>
+        <button id="abstract-btn" class="category-tab px-4 py-2 rounded-full font-medium text-sm md:text-base border border-gray-700 bg-gray-800 hover:bg-gray-700" onclick="filterGallery('abstract')">
+            นามธรรม
+        </button>
+        <button id="future-btn" class="category-tab px-4 py-2 rounded-full font-medium text-sm md:text-base border border-gray-700 bg-gray-800 hover:bg-gray-700" onclick="filterGallery('future')" disabled>
+            วิดีโอ (เร็วๆ นี้)
+        </button>
+    </section>
+
+    <!-- Gallery Grid Section -->
+    <main id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Gallery items will be injected here by JavaScript -->
+    </main>
+
+    <!-- Modal for Large Image View -->
+    <div id="image-modal" class="fixed inset-0 image-modal-overlay hidden flex items-center justify-center p-4">
+        <div class="image-modal-content max-w-4xl max-h-[90vh] bg-gray-900 rounded-xl p-4 md:p-8 relative">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <img id="modal-image" src="" alt="AI-generated artwork" class="rounded-lg object-contain w-full h-auto max-h-[70vh]">
+            <h3 id="modal-title" class="text-xl md:text-2xl font-semibold mt-4 text-center"></h3>
+            <p id="modal-category" class="text-sm text-gray-400 mt-2 text-center"></p>
+        </div>
+    </div>
+    <script src="aiScript.js"></script>
+
+  <!-- FOOTER -->
+    <!-- END HERE -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-125RVNBLJS"></script>
+    <script>
+         window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-125RVNBLJS');
+    </script>
+  </body>
+</html>
