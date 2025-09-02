@@ -321,3 +321,22 @@ document.getElementById("message-chatbox").addEventListener("keypress", function
 
 // โหลดประวัติการสนทนาเมื่อหน้าเว็บโหลด
 window.onload = loadChatHistory;
+
+function filterVideos(category) {
+  const categories = document.querySelectorAll('.category');
+  categories.forEach(cat => {
+    const catClasses = cat.getAttribute('data-category').split(' ');
+    if (category === 'all' || catClasses.includes(category)) {
+      cat.style.display = 'block';
+    } else {
+      cat.style.display = 'none';
+    }
+  });
+
+  // Update active button
+  const buttons = document.querySelectorAll('.category-nav button');
+  buttons.forEach(button => {
+    button.classList.remove('active');
+  });
+  document.querySelector(`.category-nav button[onclick="filterVideos('${category}')"]`).classList.add('active');
+}
