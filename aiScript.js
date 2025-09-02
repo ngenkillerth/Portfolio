@@ -97,7 +97,7 @@ if (!isMetaAppWeb()) {
 // Array of sample AI-generated artworks
         const artworks = [
             { id: 1, title: 'Minecraft Style', category: 'minecraft', url: 'https://lh3.googleusercontent.com/pw/AP1GczMugjtXoG5UvqwkeP2ZlQFC36mvLQIhBy6LBTnw5Sk2cNEX_3yRkYCnS8yBM4t8fMhSUCzAprAMYUu_HHtBcYc6c_nejgxFA2QIJ5aYANscLlpRTl8k4WWZoUi9bo69uuHP6mTbTMW-s7yQCbUnxfoU=w864-h1184-s-no-gm?authuser=0', description: 'เจนภาพสไตล์ Minecraft' },
-            { id: 2, title: 'Minecraft Style', category: 'minecraft', url: 'https://lh3.googleusercontent.com/pw/AP1GczM4qxESS59orQtRn_lT3rAgL9O7sGcLHTQDP_W6aKR3GDvKkAvA1Kj7ubX08I4GVG3oCCgumEXWMVjOYoSUfXDF6nAjRsMzfqmftOar43GCHcP7LLSxyEAtWMgyauqFi04MwEUAXlO3wRg8m-BGlZk-=w832-h1248-s-no-gm?authuser=0', description: 'เจนภาพสไตล์ Minecraft' },
+            { id: 2, title: 'Minecraft Style', category: 'minecraft', url: 'https://lh3.googleusercontent.com/pw/AP1GczN5kcs3MR-iRIO9HUQB0_6U55ZdiqDBZEz2VYhUxgA3kbMWQaE0a6y4ab_xAE59bmWXdhigeffzWhxatURs3a2yRhrxguJFg0_9Tp1ukJVnfZftRBaIZ7ZofOkPe8UUlyiXYem9WZiHJ0UYIp6WXmMz=w832-h1248-s-no-gm?authuser=0', description: 'เจนภาพสไตล์ Minecraft' },
         ];
 
         // Get DOM elements
@@ -173,4 +173,5 @@ if (!isMetaAppWeb()) {
         // Initial rendering of all artworks on page load
         document.addEventListener('DOMContentLoaded', () => {
             renderGallery(artworks);
+
         });
