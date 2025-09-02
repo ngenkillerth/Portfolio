@@ -99,12 +99,6 @@ if (!isMetaAppWeb()) {
             { id: 1, title: 'เมืองลอยฟ้า', category: 'scifi', url: 'https://placehold.co/800x600/6366F1/F9FAFB?text=Sci-Fi+1', description: 'เมืองในอนาคตที่ลอยอยู่เหนือเมฆ' },
             { id: 2, title: 'ป่าแห่งแสง', category: 'fantasy', url: 'https://placehold.co/800x600/EC4899/F9FAFB?text=Fantasy+1', description: 'ต้นไม้เรืองแสงท่ามกลางความมืด' },
             { id: 3, title: 'รหัสลับ', category: 'abstract', url: 'https://placehold.co/800x600/10B981/F9FAFB?text=Abstract+1', description: 'ภาพที่แสดงถึงความซับซ้อนของข้อมูล' },
-            { id: 4, title: 'ยานสำรวจดาว', category: 'scifi', url: 'https://placehold.co/800x600/6366F1/F9FAFB?text=Sci-Fi+2', description: 'ยานอวกาศขนาดเล็กที่สำรวจดาวเคราะห์ที่ห่างไกล' },
-            { id: 5, title: 'มังกรผลึก', category: 'fantasy', url: 'https://placehold.co/800x600/EC4899/F9FAFB?text=Fantasy+2', description: 'มังกรที่ร่างกายทำจากคริสตัล' },
-            { id: 6, title: 'การเคลื่อนไหวไร้ขอบเขต', category: 'abstract', url: 'https://placehold.co/800x600/10B981/F9FAFB?text=Abstract+2', description: 'การไหลของสีและรูปทรงที่เป็นอิสระ' },
-            { id: 7, title: 'อาณาจักรใต้น้ำ', category: 'fantasy', url: 'https://placehold.co/800x600/EC4899/F9FAFB?text=Fantasy+3', description: 'เมืองโบราณที่จมอยู่ใต้ทะเล' },
-            { id: 8, title: 'พอร์ทัลมิติ', category: 'scifi', url: 'https://placehold.co/800x600/6366F1/F9FAFB?text=Sci-Fi+3', description: 'ประตูสู่จักรวาลคู่ขนาน' },
-            { id: 9, title: 'การสะท้อนของจักรวาล', category: 'abstract', url: 'https://placehold.co/800x600/10B981/F9FAFB?text=Abstract+3', description: 'เงาสะท้อนของดวงดาวบนพื้นผิวที่ไม่มีอยู่จริง' },
         ];
 
         // Get DOM elements
