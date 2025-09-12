@@ -533,43 +533,58 @@
     const statusTextElement = document.getElementById('status-text');
     const statusIndicatorElement = document.getElementById('status-indicator');
 
-    // ฟังก์ชันสำหรับอัปเดตสถานะในหน้าเว็บ
-    function updateServiceStatus(status) {
-      let text = '';
-      
-      statusIndicatorElement.className = '';
-      statusIndicatorElement.classList.add('status-indicator'); // เพิ่ม class นี้กลับเข้าไปเสมอ
+// ฟังก์ชันสำหรับอัปเดตสถานะในหน้าเว็บ
+function updateServiceStatus(status) {
+  let text = '';
+  
+  statusIndicatorElement.className = '';
+  statusIndicatorElement.classList.add('status-indicator'); // เพิ่ม class นี้กลับเข้าไปเสมอ
 
-      if (status === 'open') {
-        text = 'เปิดรับงาน';
-        statusIndicatorElement.classList.add('status-open');
-      } else if (status === 'full') {
-        text = 'ปิดรับงานชั่วควาว';
-        statusIndicatorElement.classList.add('status-full');
-      } else if (status === 'closed') {
-        text = 'ไม่รับงาน';
-        statusIndicatorElement.classList.add('status-closed');
-      } else {
-        text = 'สถานะไม่ทราบ';
-        statusIndicatorElement.classList.add('status-unknown');
-      }
-      
-      statusTextElement.textContent = text;
-    }
+  if (status === 'open') {
+    text = 'เปิดรับงาน';
+    statusIndicatorElement.classList.add('status-open');
+  } else if (status === 'full') {
+    text = 'ปิดรับงานชั่วควาว';
+    statusIndicatorElement.classList.add('status-full');
+  } else if (status === 'closed') {
+    text = 'ไม่รับงาน';
+    statusIndicatorElement.classList.add('status-closed');
+  } else {
+    text = 'สถานะไม่ทราบ';
+    statusIndicatorElement.classList.add('status-unknown');
+  }
+  
+  statusTextElement.textContent = text;
+}
 
-    // เรียก API เพื่อดึงข้อมูลสถานะล่าสุด
-    fetch(`${apiUrl}?mode=api`)
-        .then(response => response.json())
-        .then(data => {
-            // ดึงค่า serviceStatus จากข้อมูลที่ได้รับ
-            const status = data.serviceStatus;
-            updateServiceStatus(status);
-        })
-        .catch(error => {
-            console.error('เกิดข้อผิดพลาดในการดึงสถานะ:', error);
-            statusTextElement.textContent = 'ไม่สามารถโหลดสถานะได้';
-            statusIndicatorElement.style.backgroundColor = 'gray';
-        });
+// ฟังก์ชันสำหรับดึงข้อมูลสถานะจาก API
+function fetchAndUpdateStatus() {
+  fetch(`${apiUrl}?mode=api`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+      // ดึงค่า serviceStatus จากข้อมูลที่ได้รับ
+      const status = data.serviceStatus;
+      updateServiceStatus(status);
+    })
+    .catch(error => {
+      console.error('เกิดข้อผิดพลาดในการดึงสถานะ:', error);
+      statusTextElement.textContent = 'ไม่สามารถโหลดสถานะได้';
+      statusIndicatorElement.style.backgroundColor = 'gray';
+    });
+}
+
+// เรียกใช้ฟังก์ชันครั้งแรกทันที
+fetchAndUpdateStatus();
+
+// ตั้งเวลาให้เรียกฟังก์ชันนี้ซ้ำทุกๆ 30 วินาที (30000 มิลลิวินาที)
+setInterval(fetchAndUpdateStatus, 30000);
+
+
 function updateTime() {
     const now = new Date(); 
 
