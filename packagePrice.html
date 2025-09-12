@@ -29,10 +29,20 @@
   <div class="Package-main-container">
     <div class="Package-header">
         <!-- <h1>แพ็คเกจตัดต่อวิดีโอ</h1> -->
-        <p>รายละเอียดและราคาเบื้องต้นสำหรับงานตัดต่อ</p>
+        <p>
+            เช็คสถานะเปิดรับงานตัดต่อได้ด้านล่างนี้เลย 👇    
+        </p>
+        <div id="status-container">
+            <p>สถานะ (<span id="currentTime"></span>) : &nbsp;</p>
+            <span id="status-text"></span>
+            <div id="status-indicator"></div>
+        </div>
     </div>
 
-    <div class="Package-Price-All-Container">
+
+  <div class="Package-Price-All-Container">
+        <h2> 🌐 Regular Package 🌐 </h2>
+        <p style="text-align: center;"> แพ็คเกจราคาเริ่มต้นพื้นฐานทั่วไป</p>
         <div class="Package-Price-All-Container-b">
             <!-- Table container for horizontal scrolling on small screens -->
             <div class="Package-Price-All-Container-c">
@@ -40,9 +50,9 @@
                     <thead class="Package-Price-All-Container-Thead">
                         <tr>
                             <th scope="col" class="PackageMenu">รายการ</th>
-                            <th scope="col" class="PackageLists">Basic</th>
-                            <th scope="col" class="PackageLists">Standard</th>
-                            <th scope="col" class="PackageLists">Premium</th>
+                            <th scope="col" class="PackageLists">STARTER</th>
+                            <th scope="col" class="PackageLists">STANDARD</th>
+                            <th scope="col" class="PackageLists">PROFESSIONAL</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,8 +73,14 @@
                         <!-- Row 3 -->
                         <tr class="Package-container">
                             <td class="Package-container-text">ใส่ Text</td>
-                            <td class="x-cross">✗</td>
                             <td class="correct-tick">✓</td>
+                            <td class="correct-tick">✓</td>
+                            <td class="correct-tick">✓</td>
+                        </tr>
+                        <tr class="Package-container">
+                            <td class="Package-container-text">Subtitle <br>[TH/ENG]</td>
+                            <td class="x-cross">✗</td>
+                            <td class="x-cross">✗</td>
                             <td class="correct-tick">✓</td>
                         </tr>
                         <!-- Row 4 -->
@@ -92,7 +108,7 @@
                         <tr class="Package-container">
                             <td class="Package-container-text">Transition</td>
                             <td class="x-cross">✗</td>
-                            <td class="x-cross">✗</td>
+                            <td class="correct-tick">✓</td>
                             <td class="correct-tick">✓</td>
                         </tr>
                          <!-- Row 8 -->
@@ -102,22 +118,44 @@
                             <td class="x-cross">✗</td>
                             <td class="correct-tick">✓</td>
                         </tr>
+                         <!-- Row 8.5 -->
+
                         <!-- Row 9 -->
                          <tr class="Package-container">
-                            <td class="Package-container-text">Storyboard / Script</td>
-                            <td colspan="3" class="Package-container-text-list"><---&nbsp;&nbsp;&nbsp;ถ้าไม่มี storyboard +100 บาท&nbsp;&nbsp;&nbsp;---></td>
+                            <td class="Package-container-text">Script</td>
+                            <td class="Package-container-text-list"> +50 ฿</td>
+                            <td class="Package-container-text-list"> +50 ฿</td>
+                            <td class="correct-tick">✓</td>
+                        </tr>
+                        <tr class="Package-container">
+                            <td class="Package-container-text">Storyboard</td>
+                            <td class="Package-container-text-list"> 100 ฿++</td>
+                            <td class="Package-container-text-list"> 100 ฿++</td>
+                            <td class="Package-container-text-list"> 100 ฿++</td>
                         </tr>
                         <!-- Row 10 -->
                         <tr class="Package-container">
                             <td class="Package-container-text">ความยาวคลิป</td>
-                            <td colspan="3" class="Package-container-text-list"><---&nbsp;&nbsp;&nbsp;ไม่เกิน 5 นาที (+50 บาท ทุกๆ 5 นาที)&nbsp;&nbsp;&nbsp;---></td>
+                            <td colspan="3" class="Package-container-text-list"><---&nbsp;&nbsp;&nbsp;ไม่เกิน 5 นาที (+50 ฿ ทุกๆ 5 นาที)&nbsp;&nbsp;&nbsp;---></td>
+                        </tr>
+                        <tr class="Package-container">
+                            <td class="Package-container-text">จำนวนแก้ไข</td>
+                            <td class="Package-container-text-list"> 3 </td>
+                            <td class="Package-container-text-list"> 3 </td>
+                            <td class="Package-container-text-list"> 3 </td>
                         </tr>
                         <!-- Row 11 -->
                         <tr class="Package-container">
                             <td class="Package-container-text">ระยะเวลาทำงาน</td>
                             <td class="Package-container-text-list">1-2 วัน</td>
-                            <td class="Package-container-text-list">1-4 วัน (เร่งด่วน 1-2 วัน +50)</td>
-                            <td class="Package-container-text-list">2-5 วัน (เร่งด่วน 2 วัน +100)</td>
+                            <td class="Package-container-text-list">1-4 วัน <br>(เร่งด่วน 1-2 วัน +100 ฿)</td>
+                            <td class="Package-container-text-list">2-5 วัน <br>(เร่งด่วน 2 วัน +00 ฿)</td>
+                        </tr>
+                        <tr class="Package-container">
+                            <td class="Package-container-text">ฟอร์แมตไฟล์</td>
+                            <td class="Package-container-text-list">.mp4</td>
+                            <td class="Package-container-text-list">.mp4</td>
+                            <td class="Package-container-text-list">.mp4, .mov</td>
                         </tr>
                         <!-- Row 12 -->
                          <tr class="Package-container">
@@ -126,12 +164,12 @@
                             <td class="Package-container-text-list">คลิปรีวิวสินค้า, คลิปพูดหน้ากล้อง</td>
                             <td class="Package-container-text-list">คลิปทุกประเภท, งานหลายมุมกล้อง</td>
                         </tr>
-                         <!-- Price Row -->
+                        <!-- Price Row -->
                         <tr class="Package-container">
-                            <td class="Price-container">ราคา</td>
+                            <td class="Price-container">ราคาเริ่มต้น</td>
                             <td class="Package-container-text-list">
                                 <!-- IMPORTANT: Replace '#' with your actual Facebook Messenger link -->
-                                <a href="https://m.me/jarunroj.somsakulrungrueng?text=สนใจจ้างงานตัดต่อ+Basic+Package" target="_blank" class="block">
+                                <a href="https://m.me/jarunroj.somsakulrungrueng?text=สนใจจ้างงานตัดต่อ+STARTER+Package" target="_blank" class="block">
                                     <button class="btn btn-basic">
                                           <span class="price-old">300 ฿</span><br>
                                           <span class="price-new">
@@ -142,19 +180,19 @@
                             </td>
                             <td class="Package-container-text-list">
                                 <!-- IMPORTANT: Replace '#' with your actual Facebook Messenger link -->
-                                <a href="https://m.me/jarunroj.somsakulrungrueng?text=สนใจจ้างงานตัดต่อ+Standard+Package" target="_blank" class="block">
+                                <a href="https://m.me/jarunroj.somsakulrungrueng?text=สนใจจ้างงานตัดต่อ+STANDARD+Package" target="_blank" class="block">
                                      <button class="btn btn-standard">
-                                          <span class="price-old">400 ฿</span><br>
+                                          <span class="price-old">500 ฿</span><br>
                                           <span class="price-new">
                                             <span class="price-prefix">เหลือ</span>
-                                            <span class="price-new-value">200 ฿</span>
+                                            <span class="price-new-value">250 ฿</span>
                                           </span>
                                     </button>
                                 </a>
                             </td>
                             <td class="Package-container-text-list">
                                 <!-- IMPORTANT: Replace '#' with your actual Facebook Messenger link -->
-                                <a href="https://m.me/jarunroj.somsakulrungrueng?text=สนใจจ้างงานตัดต่อ+Premium+Package" target="_blank" class="block">
+                                <a href="https://m.me/jarunroj.somsakulrungrueng?text=สนใจจ้างงานตัดต่อ+PROFESSIONAL+Package" target="_blank" class="block">
                                      <button class="btn btn-premium">
                                           <span class="price-old">600 ฿</span><br>
                                           <span class="price-new">
@@ -170,11 +208,13 @@
             </div>
         </div>
     </div>
+    <p class="date-update-package" style="text-align: right; color: gray;"> อัพเดตล่าสุด : 12 / กันยายน / 2025 </p>
   <div class="notes">
         <p><strong>หมายเหตุ:</strong></p>
         <p>
             <span class="notes-describe">
-            • ทุกแพ็คเกจสามารถแก้ไขได้ฟรี 2 ครั้ง <br>
+            • แก้ไขได้ฟรีตามแพ็คเกจ หลังจากนั้นคิดเพิ่ม 100 บาท <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(การแก้งานต้องระบุทุกจุดที่ต้องการแก้ไขในครั้งเดียว หากแจ้งแก้ไขทีละจุด จะถูกนับเป็นหนึ่งรอบการแก้งาน)
             </span>
             <span class="notes-describe">
             • ถ้าฟุตเทจเกิน 5 นาที คิดเพิ่ม 50 บาท / 5 นาที
@@ -183,16 +223,16 @@
             • สามารถชำระเงินที่หลังก่อนส่งงานจริงได้ (ยังไม่ชำระ งานติดลายน้ำ)
             </span>
             <span class="notes-describe">
-            • เวลาในการทำงาน: 1–5 วัน (รวมเรนเดอร์เสร็จ)
-            </span>
-            <span class="notes-describe">
             • ราคาที่แจ้งไว้เป็นราคาเบื้องต้น (ราคาอาจมีการเปลี่ยนแปลงขึ้นอยู่กับความละเอียดและดีเทลงาน)
             </span>
             <span class="notes-describe">
-            • ราคาสุดท้ายขึ้นอยู่กับดีเทลงาน ความซับซ้อน และความเร่งด่วน
+            • ราคาสุทธิขึ้นอยู่กับดีเทลงาน ความซับซ้อน และความเร่งด่วน
             </span>
             <span class="notes-describe">
-            • หากต้องการโปรเจคไฟล์แยก คิดราคาเพิ่ม 30%
+            • หากต้องการโปรเจคไฟล์ทั้งหมด (source files) คิดราคาเพิ่มเติม +30% จากราคาสุทธิ
+            </span>
+            <span class="notes-describe">
+            • ไฟล์งานจะถูกสำรองไว้ 3 วัน (หากลูกค้าแจ้งความประสงค์ สามารถเก็บได้นานสุด 30 วัน หลังจากนั้นไฟล์จะถูกลบ)
             </span>
         </p>
   </div>
@@ -215,16 +255,16 @@
 
   <!-- FOOTER -->
    <footer>
-    <div class="follow-here">
-     <h6>SOCIAL MEDIA</h6>
-     <div class="social-media">
-      <a href="https://linktr.ee/ngenkiller" target="_blank"><img src="https://play-lh.googleusercontent.com/x3Kpw4L_-miSO6eumND8Az4ltZ2Ype6vSrJeJJW44Jugzn8KuKXaqsu_E_Zjx0Db5Hw=s256-rw" alt="linktr.ee"></a>
-      <a href="https://www.instagram.com/ngenkiller/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/960px-Instagram_logo_2022.svg.png" alt="instagram"></a>
-      <a href="https://www.tiktok.com/@ngenkiller__th" target="_blank"><img src="https://www.cdnlogo.com/logos/t/46/tiktok-icon-black.svg" alt="tiktok-ngenkiller"></a>
-      <a href="https://www.tiktok.com/@game_jarunroj" target="_blank"><img src="https://www.cdnlogo.com/logos/t/46/tiktok-icon-black.svg" alt="tiktok-game_jarunroj"></a>
-      <a href="https://payhip.com/ngenkiller" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK-q6RuTtdHyMF4z9rSyo9ct55wAiaDblu9A&s" alt="payhip"></a>
-     </div>
-    </div>  
+            <div class="follow-here">
+                <h6>SOCIAL MEDIA</h6>
+                <div class="social-media">
+                    <a href="https://linktr.ee/ngenkiller" target="_blank"><img src="https://play-lh.googleusercontent.com/x3Kpw4L_-miSO6eumND8Az4ltZ2Ype6vSrJeJJW44Jugzn8KuKXaqsu_E_Zjx0Db5Hw=s256-rw" alt="linktr.ee"></a>
+                    <a href="https://www.instagram.com/ngenkiller/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/960px-Instagram_logo_2022.svg.png" alt="instagram"></a>
+                    <a href="https://www.tiktok.com/@newfastcreative" target="_blank"><img src="https://www.cdnlogo.com/logos/t/46/tiktok-icon-black.svg" alt="tiktok-ngenkiller"></a>
+                    <a href="https://www.tiktok.com/@game_jarunroj" target="_blank"><img src="https://www.cdnlogo.com/logos/t/46/tiktok-icon-black.svg" alt="tiktok-game_jarunroj"></a>
+                    <a href="https://payhip.com/ngenkiller" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK-q6RuTtdHyMF4z9rSyo9ct55wAiaDblu9A&s" alt="payhip"></a>
+                </div>
+            </div> 
      <!-- <p>Contact: your.email@example.com</p> -->
      <p align="center" style="margin-bottom: 5px;">&copy; 2025 ngenkiller. All rights reserved.</p>
      <p align="center" style="font-size: 12px; text-decoration: none; margin: 0px;"> <a href = "aboutus.html" style="text-decoration: none; color: black;">About us</a> | <a href = "privacy-policy.html" style="text-decoration: none; color: black;">Privacy Policy</a></p>

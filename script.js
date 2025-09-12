@@ -340,3 +340,76 @@ function filterVideos(category) {
   });
   document.querySelector(`.category-nav button[onclick="filterVideos('${category}')"]`).classList.add('active');
 }
+
+
+// packagePrice Status
+    // URL ของ Web App ที่เป็น API Endpoint
+    // ให้เปลี่ยน URL นี้เป็น URL จากการ Deploy Web App ของคุณ
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbxjIG0xFcVvwZYzkQdf5Vugl4W3UG-e7gB21Nl70DWFvby9h2N6gkT9T7pYPbzFrt9k/exec';
+
+    // อ้างอิงถึง element ที่จะใช้แสดงผล
+    const statusTextElement = document.getElementById('status-text');
+    const statusIndicatorElement = document.getElementById('status-indicator');
+
+    // ฟังก์ชันสำหรับอัปเดตสถานะในหน้าเว็บ
+    function updateServiceStatus(status) {
+      let text = '';
+      
+      statusIndicatorElement.className = '';
+      statusIndicatorElement.classList.add('status-indicator'); // เพิ่ม class นี้กลับเข้าไปเสมอ
+
+      if (status === 'open') {
+        text = 'เปิดรับงาน';
+        statusIndicatorElement.classList.add('status-open');
+      } else if (status === 'full') {
+        text = 'ปิดรับงานชั่วควาว';
+        statusIndicatorElement.classList.add('status-full');
+      } else if (status === 'closed') {
+        text = 'ไม่รับงาน';
+        statusIndicatorElement.classList.add('status-closed');
+      } else {
+        text = 'สถานะไม่ทราบ';
+        statusIndicatorElement.classList.add('status-unknown');
+      }
+      
+      statusTextElement.textContent = text;
+    }
+
+    // เรียก API เพื่อดึงข้อมูลสถานะล่าสุด
+    fetch(`${apiUrl}?mode=api`)
+        .then(response => response.json())
+        .then(data => {
+            // ดึงค่า serviceStatus จากข้อมูลที่ได้รับ
+            const status = data.serviceStatus;
+            updateServiceStatus(status);
+        })
+        .catch(error => {
+            console.error('เกิดข้อผิดพลาดในการดึงสถานะ:', error);
+            statusTextElement.textContent = 'ไม่สามารถโหลดสถานะได้';
+            statusIndicatorElement.style.backgroundColor = 'gray';
+        });
+function updateTime() {
+    const now = new Date(); 
+
+    // ดึงส่วนของเวลา
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const timeString = `${hours}:${minutes}:${seconds}`;
+
+    // ดึงส่วนของวันที่
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // getMonth() เริ่มจาก 0
+    const day = now.getDate().toString().padStart(2, '0');
+    const dateString = `${day}/${month}/${year}`;
+
+    // รวมวันที่และเวลา
+    const dateTimeString = `${dateString} | ${timeString}`;
+
+    document.getElementById("currentTime").textContent = dateTimeString;
+}
+    // เรียกฟังก์ชัน updateTime() ทันทีที่หน้าเว็บโหลด
+    updateTime();
+
+    // ตั้งค่าให้ฟังก์ชัน updateTime() ทำงานซ้ำทุกๆ 1 วินาที (1000 มิลลิวินาที)
+    setInterval(updateTime, 1000);
