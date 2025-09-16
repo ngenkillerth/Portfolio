@@ -292,6 +292,13 @@ nav ul li a:hover::after {
     transform-origin: left;
 }
 
+.video_container_index iframe {
+    margin: 1px;
+    padding: 1px;
+    border-radius: 20px;
+}
+
+
 /* New services container */
 .services-container {
     display: flex;

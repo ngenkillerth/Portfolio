@@ -134,6 +134,7 @@ if (!isMetaAppWeb()) {
                 case 'fantasy': return 'แนวแฟนตาซี';
                 case 'abstract': return 'แนวนามธรรม';
                 case 'minecraft': return 'แนวมายคราฟ';
+                case 'art': return 'แนวศิลปะ';
                 default: return '';
             }
         };
