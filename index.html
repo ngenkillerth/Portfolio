@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewFastCreative | Professional Video Editing</title>
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/pw/AP1GczOQLaP_AwKysacw5jxzD_bQP65RftaEKfx1as-BwlPkm-I-CCKEYfmO56TLS5Z6Nc_RJ_K_7IoGTo27D1iAdcOMdgHPYC2KcP-y1x3lnS4L9IF9p1saLanMoHmjRprNPWJ0wKPiEsgqZlWBRmBzIo5z=w500-h500-s-no-gm?authuser=0">
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neutral: {
+                            950: '#0a0a0a',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600;700&family=Inter:wght@400;600&display=swap');
+        body { font-family: 'Kanit', sans-serif; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #171717; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ca8a04; }
+    </style>
+</head>
+<body class="bg-neutral-950 text-gray-100">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        // --- 1. Icons ---
+        const Icon = ({ children, size = 24, className = "" }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
+        );
+
+        const Play = (props) => <Icon {...props}><polygon points="5 3 19 12 5 21 5 3"></polygon></Icon>;
+        const MenuIcon = (props) => <Icon {...props}><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="18" x2="20" y2="18"></line></Icon>;
+        const XIcon = (props) => <Icon {...props}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></Icon>;
+        const ArrowRight = (props) => <Icon {...props}><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></Icon>;
+        const ArrowLeft = (props) => <Icon {...props}><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></Icon>;
+        const Sparkles = (props) => <Icon {...props}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z"></path></Icon>;
+        const CheckCircle2 = (props) => <Icon {...props}><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></Icon>;
+        const XCircle = (props) => <Icon {...props}><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></Icon>;
+        const StarIcon = (props) => <Icon {...props}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></Icon>;
+        const MessageCircle = (props) => <Icon {...props}><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path></Icon>;
+        const Instagram = (props) => <Icon {...props}><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></Icon>;
+        const Music = (props) => <Icon {...props}><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></Icon>;
+        const ShoppingBag = (props) => <Icon {...props}><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></Icon>;
+        const Users = (props) => <Icon {...props}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></Icon>;
+        const Grid = (props) => <Icon {...props}><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></Icon>;
+
+        // --- 2. Data for All Works ---
+        const ALL_WORKS = [
+            { id: 1, title: "Motion Graphics Demo", category: "Motion Graphic", src: "https://drive.google.com/file/d/1rU0o4rQFxRFlXlu-xMA0TjAgYlCU5WSK/preview" },
+            { id: 2, title: "Watergate Pavillion", category: "Corporate & Review", src: "https://drive.google.com/file/d/1_fGSaG4SY-JMR1Eo3cWCHD16nia-sbu5/preview" },
+            { id: 3, title: "Social Content", category: "Social Media", src: "https://drive.google.com/file/d/1qH46R9qazLnAa0HWhVds9XdBprddGYZh/preview" },
+            { id: 4, title: "Vlog Lifestyle", category: "Vlog", src: "https://drive.google.com/file/d/1jCUpLJZLfAW5M5zPABkBd3JML2zoH1aR/preview" },
+            { id: 5, title: "Commercial Ad", category: "Advertising", src: "https://drive.google.com/file/d/1GffGFI7fSfAqhp-1KaLZZADs5ZyhwTcR/preview" },
+            { id: 6, title: "Creative Content", category: "Music Video", src: "https://www.youtube.com/embed/pQkP8x49q2A" },
+            { id: 7, title: "Game Highlight", category: "Gaming", src: "https://drive.google.com/file/d/1u9W328i1fDxG99oirWLrDkyYUeYKdl0Z/preview" }, // Mock src
+            { id: 8, title: "Product Review", category: "Corporate & Review", src: "https://drive.google.com/file/d/15U6g61edYiiS02_QMR-KjFidOZgmM0jr/preview" }, // Mock src
+            { id: 9, title: "Tiktok Viral", category: "Social Media", src: "https://drive.google.com/file/d/1VfKWA62qZE1rfY3q7LTS55ZEy3RZb8QG/preview" },
+            { id: 10, title: "Travel Vlog", category: "Vlog", src: "https://drive.google.com/file/d/1d5Rr49ysXZkjE_z-QSUDrtJTHQdt4yL_/preview" },
+            { id: 11, title: "Brand Intro", category: "Motion Graphic", src: "https://drive.google.com/file/d/1AjddEw2sN-Q2atS1VNMvS-dbNhaN4Kcg/preview" },
+            { id: 12, title: "Gaming Stream", category: "Gaming", src: "https://drive.google.com/file/d/1dAYDMMQLHWMfGglBHacYAPF_Tg2Jb0Iv/preview" },
+            { id: 13, title: "Short Film", category: "Creative", src: "https://drive.google.com/file/d/1YDADEHxFq8TtqwvwnuzFcCJGF67VIWP0/preview" }
+        ];
+
+        const CATEGORIES = ["All", "Motion Graphic", "Social Media", "Vlog", "Corporate & Review", "Advertising", "Gaming", "Music Video"];
+
+        // --- 3. Components ---
+
+        const SectionHeader = ({ title, subtitle }) => (
+            <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">{title}</h2>
+                <div className="h-1 w-20 bg-yellow-500 mx-auto mb-6 rounded-full"></div>
+                <p className="text-gray-400 font-light text-lg">{subtitle}</p>
+            </div>
+        );
+
+        const StatItem = ({ number, label }) => (
+            <div className="flex flex-col items-center">
+                <span className="text-3xl md:text-4xl font-bold text-yellow-500">{number}</span>
+                <span className="text-xs md:text-sm text-gray-400 uppercase tracking-wider mt-1">{label}</span>
+            </div>
+        );
+
+        const VideoCard = ({ title, category, src }) => (
+            <div className="group relative bg-neutral-800 rounded-xl overflow-hidden border border-white/5 hover:border-yellow-500/50 transition-all duration-300 shadow-lg flex flex-col h-full">
+                <div className="aspect-video w-full bg-black relative">
+                    <iframe 
+                        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                        src={src} 
+                        title={title} 
+                        frameBorder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowFullScreen
+                    ></iframe>
+                </div>
+                <div className="p-4 bg-neutral-800 group-hover:bg-neutral-700/50 transition-colors flex-grow">
+                    <span className="text-xs text-yellow-500 font-medium uppercase tracking-wider">{category}</span>
+                    <h3 className="text-lg font-semibold text-white mt-1 group-hover:text-yellow-400 transition-colors">{title}</h3>
+                </div>
+            </div>
+        );
+
+        const PricingCard = ({ title, price, oldPrice, features, notIncluded = [], isPopular = false, link }) => (
+            <div className={`relative flex flex-col p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-2 ${isPopular ? 'bg-neutral-800 border-yellow-500 shadow-xl shadow-yellow-500/10' : 'bg-neutral-900 border-white/10 hover:border-white/20'}`}>
+                {isPopular && (
+                    <div className="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">POPULAR</div>
+                )}
+                <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+                <div className="mb-6">
+                    <span className="text-sm text-gray-500 line-through mr-2">฿{oldPrice}</span>
+                    <span className="text-4xl font-bold text-yellow-400">฿{price}</span>
+                    <span className="text-sm text-gray-400">/คลิป</span>
+                </div>
+                <div className="flex-grow space-y-3 mb-8">
+                    {features.map((feat, idx) => (
+                        <div key={idx} className="flex items-start gap-3">
+                            <CheckCircle2 size={18} className="text-green-500 mt-1 shrink-0" />
+                            <span className="text-sm text-gray-300">{feat}</span>
+                        </div>
+                    ))}
+                    {notIncluded.map((feat, idx) => (
+                        <div key={idx} className="flex items-start gap-3 opacity-50">
+                            <XCircle size={18} className="text-red-500 mt-1 shrink-0" />
+                            <span className="text-sm text-gray-500">{feat}</span>
+                        </div>
+                    ))}
+                </div>
+                <a href={link} target="_blank" rel="noopener noreferrer" className={`w-full py-3 rounded-xl font-bold text-center transition-colors ${isPopular ? 'bg-yellow-500 hover:bg-yellow-400 text-black' : 'bg-white/10 hover:bg-white/20 text-white'}`}>เลือกแพ็คเกจนี้</a>
+            </div>
+        );
+
+        const AIImage = ({ src, category }) => (
+            <div className="relative group overflow-hidden rounded-lg aspect-[3/4] cursor-pointer">
+                <img src={src} alt={category} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <span className="text-yellow-400 font-bold">{category}</span>
+                </div>
+            </div>
+        );
+
+        const ReviewCard = ({ name, rating, comment }) => (
+            <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5">
+                <div className="flex items-center justify-between mb-4">
+                    <h4 className="font-bold text-white">{name}</h4>
+                    <div className="flex text-yellow-500">
+                        {[...Array(5)].map((_, i) => (
+                            <StarIcon key={i} size={14} fill={i < rating ? "currentColor" : "none"} stroke="currentColor" className={i >= rating ? "text-gray-600" : ""} />
+                        ))}
+                    </div>
+                </div>
+                <p className="text-gray-300 text-sm italic">"{comment}"</p>
+            </div>
+        );
+
+        const SocialBtn = ({ icon, link, label }) => (
+            <a href={link} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-yellow-500 hover:text-black transition-colors" title={label}>{icon}</a>
+        );
+
+        const SocialProfileCard = ({ img, username, followers, link }) => (
+            <a href={link} target="_blank" rel="noopener noreferrer" className="block group">
+                <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-yellow-500/50 transition-all duration-300 flex flex-col items-center text-center hover:-translate-y-1">
+                    <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-yellow-500/20 group-hover:border-yellow-500 transition-colors">
+                        <img src={img} alt={username} className="w-full h-full object-cover" />
+                    </div>
+                    <h4 className="font-bold text-white text-lg mb-1">{username}</h4>
+                    <div className="flex items-center gap-2 text-gray-400 text-sm">
+                        <Users size={16} />
+                        <span>{followers} Followers</span>
+                    </div>
+                </div>
+            </a>
+        );
+
+        // --- 4. All Works Page Component ---
+        const AllWorksView = ({ onBack }) => {
+            const [selectedCategory, setSelectedCategory] = useState("All");
+
+            const filteredWorks = selectedCategory === "All" 
+                ? ALL_WORKS 
+                : ALL_WORKS.filter(work => work.category === selectedCategory || (selectedCategory === "Creative" && work.category === "Music Video")); // Simple mapping for example
+
+            // Better filtering logic based on actual data structure
+            const displayWorks = selectedCategory === "All" 
+                ? ALL_WORKS 
+                : ALL_WORKS.filter(work => {
+                    if (selectedCategory === "Social Media") return ["Social Media", "Tiktok / Reels"].includes(work.category);
+                    return work.category.includes(selectedCategory) || selectedCategory.includes(work.category);
+                });
+
+            return (
+                <div className="min-h-screen bg-neutral-950 pt-24 pb-12 px-4 animate-fade-in-up">
+                    <div className="max-w-7xl mx-auto">
+                        {/* Header */}
+                        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+                            <button 
+                                onClick={onBack}
+                                className="flex items-center gap-2 text-gray-400 hover:text-yellow-400 transition-colors self-start md:self-auto"
+                            >
+                                <ArrowLeft size={20} /> กลับหน้าหลัก
+                            </button>
+                            <div className="text-center md:text-right">
+                                <h1 className="text-3xl md:text-5xl font-bold text-white mb-2">ผลงานทั้งหมด</h1>
+                                <p className="text-gray-400">รวมผลงานตัดต่อคุณภาพที่เราคัดสรรมาเพื่อคุณ</p>
+                            </div>
+                        </div>
+
+                        {/* Filters */}
+                        <div className="mb-12 overflow-x-auto pb-4 scrollbar-hide">
+                            <div className="flex gap-3 min-w-max md:justify-center">
+                                {CATEGORIES.map((cat) => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setSelectedCategory(cat)}
+                                        className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                                            selectedCategory === cat 
+                                            ? 'bg-yellow-500 text-black font-bold shadow-lg shadow-yellow-500/20' 
+                                            : 'bg-neutral-800 text-gray-400 hover:bg-neutral-700 hover:text-white'
+                                        }`}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            {displayWorks.map((work) => (
+                                <VideoCard 
+                                    key={work.id}
+                                    title={work.title}
+                                    category={work.category}
+                                    src={work.src}
+                                />
+                            ))}
+                        </div>
+                        
+                        {displayWorks.length === 0 && (
+                            <div className="text-center py-20 text-gray-500">
+                                <p>ไม่พบผลงานในหมวดหมู่นี้</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // --- 5. Main App Logic ---
+
+        const App = () => {
+            const [view, setView] = useState('home'); // 'home' or 'all-works'
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [scrolled, setScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setScrolled(window.scrollY > 50);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            // Scroll to top when view changes
+            useEffect(() => {
+                window.scrollTo(0, 0);
+            }, [view]);
+
+            const scrollToSection = (id) => {
+                if (view !== 'home') {
+                    setView('home');
+                    // Wait for render then scroll
+                    setTimeout(() => {
+                        const element = document.getElementById(id);
+                        if (element) element.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                } else {
+                    const element = document.getElementById(id);
+                    if (element) element.scrollIntoView({ behavior: 'smooth' });
+                }
+                setIsMenuOpen(false);
+            };
+
+            const NavLink = ({ id, label }) => (
+                <button 
+                    onClick={() => scrollToSection(id)}
+                    className="text-sm font-medium transition-colors duration-300 hover:text-yellow-400 text-gray-300"
+                >
+                    {label}
+                </button>
+            );
+
+            // Conditional Rendering
+            if (view === 'all-works') {
+                return <AllWorksView onBack={() => setView('home')} />;
+            }
+
+            return (
+                <div className="min-h-screen bg-neutral-950 text-gray-100 font-sans selection:bg-yellow-500 selection:text-black">
+                    {/* Navigation */}
+                    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-neutral-900/90 backdrop-blur-md py-3 shadow-lg border-b border-white/5' : 'bg-transparent py-5'}`}>
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center cursor-pointer" onClick={() => scrollToSection('home')}>
+                                    <span className="text-2xl font-bold bg-gradient-to-r from-yellow-300 to-yellow-600 bg-clip-text text-transparent">
+                                        NFC
+                                    </span>
+                                </div>
+
+                                {/* Desktop Menu */}
+                                <div className="hidden md:flex space-x-8">
+                                    <NavLink id="home" label="หน้าแรก" />
+                                    <NavLink id="portfolio" label="ผลงาน" />
+                                    <NavLink id="ai-gallery" label="AI Art" />
+                                    <NavLink id="pricing" label="แพ็คเกจ" />
+                                    <NavLink id="reviews" label="รีวิว" />
+                                    <button 
+                                        onClick={() => scrollToSection('contact')}
+                                        className="px-5 py-2 rounded-full bg-yellow-500 text-black font-semibold text-sm hover:bg-yellow-400 transition-all shadow-[0_0_15px_rgba(234,179,8,0.3)] hover:shadow-[0_0_25px_rgba(234,179,8,0.5)]"
+                                    >
+                                        ติดต่องาน
+                                    </button>
+                                </div>
+
+                                {/* Mobile Menu Button */}
+                                <div className="md:hidden">
+                                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white focus:outline-none">
+                                        {isMenuOpen ? <XIcon size={24} /> : <MenuIcon size={24} />}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Mobile Menu Dropdown */}
+                        {isMenuOpen && (
+                            <div className="md:hidden bg-neutral-900 border-t border-neutral-800">
+                                <div className="px-4 pt-2 pb-6 space-y-4 flex flex-col items-center">
+                                    <NavLink id="home" label="หน้าแรก" />
+                                    <NavLink id="portfolio" label="ผลงาน" />
+                                    <NavLink id="ai-gallery" label="AI Art" />
+                                    <NavLink id="pricing" label="แพ็คเกจ" />
+                                    <NavLink id="reviews" label="รีวิว" />
+                                    <NavLink id="contact" label="ติดต่อเรา" />
+                                </div>
+                            </div>
+                        )}
+                    </nav>
+
+                    {/* Hero Section */}
+                    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+                        <div className="absolute inset-0 z-0">
+                            <div className="absolute top-0 left-1/4 w-96 h-96 bg-yellow-600/10 rounded-full blur-[100px]"></div>
+                            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px]"></div>
+                        </div>
+
+                        <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-sm animate-fade-in-up">
+                                <Sparkles size={14} className="text-yellow-400" />
+                                <span className="text-xs font-light tracking-wider text-gray-300">MODERN VIDEO PRODUCTION</span>
+                            </div>
+                            
+                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight animate-fade-in-up">
+                                งานตัดต่อที่พวกเราอยากให้<br/>
+                                <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+                                    วิดีโอออกมีคุณภาพมากที่สุด
+                                </span>
+                            </h1>
+                            
+                            <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 font-light animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+                                เบื่อไหมกับการเสียเวลาตัดต่อนานๆ? ให้ New Fast Creative เปลี่ยนฟุตเทจธรรมดา 
+                                ให้กลายเป็นผลงานระดับพรีเมียม ที่พร้อมดึงดูดทุกสายตา
+                            </p>
+                            
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+                                <button 
+                                    onClick={() => scrollToSection('pricing')}
+                                    className="px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full transition-all transform hover:scale-105 shadow-lg flex items-center gap-2"
+                                >
+                                    ดูแพ็คเกจราคา <ArrowRight size={18} />
+                                </button>
+                                <button 
+                                    onClick={() => scrollToSection('portfolio')}
+                                    className="px-8 py-4 bg-transparent border border-white/20 hover:bg-white/5 text-white font-medium rounded-full transition-all flex items-center gap-2"
+                                >
+                                    <Play size={18} /> ชมผลงาน
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Stats Bar */}
+                    <div className="border-y border-white/5 bg-black/20 backdrop-blur-sm py-8">
+                        <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-around gap-8 text-center">
+                            <StatItem number="100+" label="Videos Edited" />
+                            <StatItem number="98%" label="Client Satisfaction" />
+                            <StatItem number="12h" label="Fast Turnaround" />
+                        </div>
+                    </div>
+
+                    {/* Portfolio Section */}
+                    <section id="portfolio" className="py-24 bg-neutral-900/30">
+                        <div className="max-w-7xl mx-auto px-4">
+                            <SectionHeader title="ผลงานของเรา" subtitle="ตัวอย่างงานตัดต่อหลากหลายสไตล์ที่เราภูมิใจนำเสนอ" />
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                                <VideoCard title="Motion Graphics Demo" category="Motion Graphic" src="https://drive.google.com/file/d/1rU0o4rQFxRFlXlu-xMA0TjAgYlCU5WSK/preview" />
+                                <VideoCard title="Watergate Pavillion" category="Corporate & Review" src="https://drive.google.com/file/d/1_fGSaG4SY-JMR1Eo3cWCHD16nia-sbu5/preview" />
+                                <VideoCard title="Social Content" category="Tiktok / Reels" src="https://drive.google.com/file/d/1qH46R9qazLnAa0HWhVds9XdBprddGYZh/preview" />
+                                <VideoCard title="Vlog Lifestyle" category="Vlog" src="https://drive.google.com/file/d/1jCUpLJZLfAW5M5zPABkBd3JML2zoH1aR/preview" />
+                                <VideoCard title="Commercial Ad" category="Advertising" src="https://drive.google.com/file/d/1GffGFI7fSfAqhp-1KaLZZADs5ZyhwTcR/preview" />
+                                <VideoCard title="Creative Content" category="Creative" src="https://www.youtube.com/embed/pQkP8x49q2A" />
+                            </div>
+
+                            {/* View All Works Button */}
+                            <div className="flex justify-center">
+                                <button 
+                                    onClick={() => setView('all-works')}
+                                    className="group px-8 py-3 bg-neutral-800 hover:bg-neutral-700 border border-white/10 text-white rounded-full transition-all flex items-center gap-3"
+                                >
+                                    <Grid size={18} />
+                                    <span className="font-semibold">ดูคลิปผลงานทั้งหมด</span>
+                                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* AI Gallery Section */}
+                    <section id="ai-gallery" className="py-24">
+                        <div className="max-w-7xl mx-auto px-4">
+                            <SectionHeader title="AI Art Gallery" subtitle="ความคิดสร้างสรรค์ไร้ขีดจำกัดด้วยเทคโนโลยี AI" />
+                            
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <AIImage src="https://placehold.co/400x600/1a1a1a/gold?text=Cyberpunk" category="Sci-Fi" />
+                                <AIImage src="https://placehold.co/400x600/1a1a1a/gold?text=Fantasy" category="Fantasy" />
+                                <AIImage src="https://placehold.co/400x600/1a1a1a/gold?text=Abstract" category="Abstract" />
+                                <AIImage src="https://placehold.co/400x600/1a1a1a/gold?text=Character" category="Character" />
+                            </div>
+                            <p className="text-center text-gray-500 mt-8 text-sm">*ภาพตัวอย่างเพื่อการโฆษณา</p>
+                        </div>
+                    </section>
+
+                    {/* Pricing Section */}
+                    <section id="pricing" className="py-24 bg-neutral-900/30 relative">
+                        <div className="max-w-7xl mx-auto px-4">
+                            <SectionHeader title="แพ็คเกจราคา" subtitle="เลือกแผนที่เหมาะสมกับงบประมาณและความต้องการของคุณ" />
+                            
+                            <div className="flex justify-center mb-12">
+                                <div className="bg-neutral-800 rounded-full px-6 py-2 flex items-center gap-3 border border-white/5">
+                                    <span className="relative flex h-3 w-3">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                    </span>
+                                    <span className="text-sm font-medium text-gray-300">สถานะ: <span className="text-green-400">เปิดรับงาน</span></span>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <PricingCard 
+                                    title="Starter" 
+                                    price="250" 
+                                    oldPrice="350"
+                                    features={["ตัดต่อแบบกระชับ (ตัดชน)", "ใส่ Text พื้นฐาน", "ใส่เพลงประกอบ (BG Music)", "ความยาวไม่เกิน 5 นาที", "แก้ไขงานได้ 3 ครั้ง"]}
+                                    notIncluded={["Subtitle", "Effect พิเศษ", "Motion Graphic"]}
+                                    link="https://m.me/jarunroj.somsakulrungrueng?text=สนใจแพ็คเกจ+Starter"
+                                />
+                                
+                                <PricingCard 
+                                    title="Standard" 
+                                    price="350" 
+                                    oldPrice="500"
+                                    isPopular={true}
+                                    features={["ทุกอย่างใน Starter", "ใส่ Transition เชื่อมฉาก", "ใส่ภาพ/วิดีโอแทรก (Insert)", "ใส่ Sound Effect (SFX)", "ปรับสีพื้นฐาน (Color Grading)", "แก้ไขงานได้ 3 ครั้ง"]}
+                                    notIncluded={["Subtitle", "Motion Graphic"]}
+                                    link="https://m.me/jarunroj.somsakulrungrueng?text=สนใจแพ็คเกจ+Standard"
+                                />
+
+                                <PricingCard 
+                                    title="Professional" 
+                                    price="500" 
+                                    oldPrice="1000"
+                                    features={["Full Option จัดเต็ม", "Subtitle (TH/ENG)", "Motion Graphic เบื้องต้น", "รองรับหลายมุมกล้อง", "ไฟล์สูงสุด 4K", "Script & Storyboard support", "แก้ไขงานได้ 3 ครั้ง"]}
+                                    link="https://m.me/jarunroj.somsakulrungrueng?text=สนใจแพ็คเกจ+Professional"
+                                />
+                            </div>
+                            
+                            <div className="mt-12 p-6 rounded-xl bg-neutral-900 border border-yellow-500/20 text-center max-w-3xl mx-auto">
+                                <h4 className="text-yellow-500 font-semibold mb-2">หมายเหตุเพิ่มเติม</h4>
+                                <p className="text-sm text-gray-400">
+                                * ราคานี้เป็นราคาเริ่มต้น อาจมีการเปลี่ยนแปลงตามความยากง่ายของงาน <br/>
+                                * หากฟุตเทจยาวเกิน 5 นาที คิดเพิ่ม 50 บาท/5 นาที <br/>
+                                * ต้องการไฟล์ Project (Source files) คิดเพิ่ม 30%
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Reviews Section */}
+                    <section id="reviews" className="py-24">
+                        <div className="max-w-7xl mx-auto px-4">
+                            <SectionHeader title="เสียงตอบรับจากลูกค้า" subtitle="ความประทับใจจริงจากผู้ใช้บริการ" />
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <ReviewCard name="คุณนนท์ (Gamer)" rating={5} comment="งานไวมากครับ สั่งเช้าได้เย็น ตัดต่อเข้าใจฟีลเกมเมอร์ ใส่เอฟเฟกต์ฮาๆ ได้จังหวะพอดีเป๊ะ แนะนำเลยครับ" />
+                                <ReviewCard name="ร้านเสื้อผ้า K-Style" rating={5} comment="คลิปรีวิวสินค้าดูแพงขึ้นมาก ยอดวิวใน TikTok ดีขึ้นหลังจากจ้างตัดต่อที่นี่ คุ้มราคามากค่ะ" />
+                                <ReviewCard name="Vlog สายกิน" rating={4} comment="ตัดต่อดีครับ เรียบเรียงเรื่องราวเก่ง สีภาพสวยดูน่ากินขึ้นเยอะเลยครับ" />
+                                <ReviewCard name="Tech Reviewer" rating={5} comment="Professional มากครับ งานเนี้ยบ ซับไตเติลถูกต้อง ไทม์มิ่งเป๊ะ จะมาใช้บริการอีกแน่นอน" />
+                            </div>
+                        </div>
+                    </section>
+                    
+                    {/* Social Media Section */}
+                    <section id="socials" className="py-16 border-t border-white/5 bg-neutral-900/20">
+                        <div className="max-w-7xl mx-auto px-4">
+                            <div className="text-center mb-10">
+                                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Our Social Media</h2>
+                                <p className="text-gray-400">ติดตามผลงานและอัปเดตล่าสุดของเราได้ที่นี่</p>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <SocialProfileCard img="https://lh3.googleusercontent.com/pw/AP1GczM9xBLXNgvquWYYS9i3QK4qERXhi4w8GOJoO1JyxLl8-ofF1hZNbLCKujm_2IsSa0uNoZv_uFVX6m5h_emciyqVgBlQQPMen1dhZvEsaY-P-XYJP2XoJDkSuLuK77SwvWDHTAL8W-gJL_dRD2USefq2=w388-h388-s-no-gm?authuser=0" username="ngenkiller" followers="1.2K" link="https://www.tiktok.com/@ngenkiller__th" />
+                                <SocialProfileCard img="https://lh3.googleusercontent.com/pw/AP1GczNAAaywRSW9IAxhFTu3ZElaOIU-hfX0O_zm-O_Y3jL5rEvBBgywn9Ce6IJEJsUkv1HFuKK7Fo2qCuaMXMuHI_aWefbJcIqtTmHkHfIRNxkuUqcG-eG3c62PF4Iqfu5xIAtLeSChRD_wF3GGIRiEJMVj=w388-h388-s-no-gm?authuser=0" username="ngenkiller_tellin" followers="3.2K" link="https://www.tiktok.com/@ngenkiller_tellin" />
+                                <SocialProfileCard img="https://lh3.googleusercontent.com/pw/AP1GczM1cu08jvx7TkcVD-bc_PehldUBDOAHC1iv8I2pk66ReQLDFix10ciXQaENTg9OjaKLAJ-PNrFYfE0LbgUrNGOzLhmUCTiUtlhxTLffJwueG2jrup11jze54cXOm-rP6r3iF004EBEoMw6aesiND5zC=w388-h388-s-no-gm?authuser=0" username="game_jarunroj" followers="93K" link="https://www.tiktok.com/@game_jarunroj" />
+                                <SocialProfileCard img="https://lh3.googleusercontent.com/pw/AP1GczNZfiOb6zFxTCrXEoj_n0-a0lFAr2-aelosC_bpPpYz6LqJekOCIBn56JVeXRrUTIhIEa1RreRNUtuuOcTx6UIaRxFuLL2gmfdRUp5V1Twxi4wNkg5kLcyuhQjQQhJVLewpJuOmuAVCP6Fxw7qOAUOV=w388-h388-s-no-gm?authuser=0" username="futuregamegame" followers="6.9K" link="https://www.tiktok.com/@futuregamegame" />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact Section */}
+                    <section id="contact" className="py-24 bg-gradient-to-b from-neutral-900 to-neutral-950">
+                        <div className="max-w-4xl mx-auto px-4 text-center">
+                            <SectionHeader title="ร่วมงานกับเรา" subtitle="พร้อมยกระดับวิดีโอของคุณหรือยัง? ทักมาคุยรายละเอียดกันก่อนได้เลย" />
+                            
+                            <div className="bg-neutral-800/50 p-8 rounded-2xl border border-white/5 backdrop-blur-sm shadow-xl">
+                                <div className="flex flex-col items-center gap-6">
+                                    <a href="https://m.me/jarunroj.somsakulrungrueng" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-lg shadow-blue-900/20">
+                                        <MessageCircle size={24} />
+                                        Chat via Messenger
+                                    </a>
+                                    <p className="text-gray-400">หรือติดตามผลงานได้ที่</p>
+                                    <div className="flex gap-4">
+                                        <SocialBtn icon={<Instagram size={20} />} link="https://www.instagram.com/ngenkiller/" />
+                                        <SocialBtn icon={<Music size={20} />} link="https://www.tiktok.com/@newfastcreative" label="TikTok" />
+                                        <SocialBtn icon={<ShoppingBag size={20} />} link="https://payhip.com/ngenkiller" label="Shop" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="py-8 border-t border-white/5 bg-black text-center">
+                        <div className="max-w-7xl mx-auto px-4">
+                            <p className="text-gray-500 text-sm">
+                                &copy; 2025 New Fast Creative. All rights reserved. <br/>
+                                <span className="text-xs text-gray-700 mt-2 block">Designed for Excellence</span>
+                            </p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
